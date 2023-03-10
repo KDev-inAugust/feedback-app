@@ -4,24 +4,23 @@ import React, {useEffect, useState} from 'react';
 function App() {
 
   const [selectedAsset, setSelectedAsset] = useState([]);
+  const [projectId, setProjectId] = useState(1)
   
 // ------ Select The Asset ------------ 
   function handleChooseAsset(e){
     setSelectedAsset(Array.from(e.target.files))
+    console.log("selected asset", selectedAsset)
   }
 // -------Attach The Asset to the Project ---------
-  function handleAssetSubmit(){
-
-    console.log("selected asset", selectedAsset)
-
+  function handleAssetSubmit(e){
+    e.preventDefault()
+    
     const formData = new FormData();
 
-    selectedAsset.forEach((asset, index) =>
-    formData.append(`asset[]`, asset),
-    formData.append('id', 1)
-  );
+  formData.append('asset', selectedAsset[0])
+  formData.append('id', projectId)
 
-      console.log(formData)
+
     for (const value of formData.values()) {
       console.log('form data values', value);
     }
