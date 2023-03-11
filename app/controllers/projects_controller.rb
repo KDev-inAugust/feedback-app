@@ -5,9 +5,15 @@ class ProjectsController < ApplicationController
         render json: projects
     end
 
+    def show
+        project=Project.find_by(id: params[:id])
+        render json: project
+    end
+
     def add_asset
         project = Project.find_by(id: params[:id])
         project.assets.attach(params[:asset])
+        project.assets.last.update(filename: params[:name])
         render json: project.assets.last
     end
 end

@@ -4,9 +4,10 @@ class Project < ApplicationRecord
 
      #  this method generates the urls for the assets that we will use
      #  at the src in an audio element
-     def image_urls
-         assets.map do |image|
+     def asset_urls
+         assets.map do |asset|
            Rails.application.routes.url_helpers.rails_blob_path(asset, only_path: true)
          end
      end
+
 end
