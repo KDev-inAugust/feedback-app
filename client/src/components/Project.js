@@ -7,6 +7,7 @@ function Project(){
     const [projectId, setProjectId] = useState(1);
     const [project, setProject] = useState(null)
     const [projectName, setProjectName] = useState("");
+    const [projectAssets, setProjectAssets] = useState([]);
     const [projectUrls, setProjectUrls] = useState([]);
     const [assetName, setAssetName] = useState("")
     
@@ -16,7 +17,8 @@ function Project(){
       .then(r=>r.json())
       .then(data=>{setProject(data); setProjectName(data.name); 
         setProjectUrls(data.asset_urls); 
-        console.log(data.asset_urls)})
+        console.log(data.asset_names)
+      })
     },[])
     
   // ------ Select The Asset ------------ 
@@ -32,7 +34,7 @@ function Project(){
   
     formData.append('asset', selectedAsset[0])
     formData.append('id', projectId)
-    formData.append('name', "this work?")
+    formData.append('name', "Mar 12 Check")
   
   
       for (const value of formData.values()) {
@@ -48,7 +50,9 @@ function Project(){
           console.log(data);
         })
     }
-  
+    // ------------
+    
+
     // ----------- upload and display the uploaded asset ---------
   
     return (
@@ -65,12 +69,17 @@ function Project(){
         <button onClick={handleAssetSubmit}>add file to project</button>
   
         <div>{projectName}</div>
-        
-            {projectUrls.map((url)=>{
+
+            { project ? 
+            (project.asset_urls.map((url, index)=>{
               return (
-                <audio controls key={url} src={url}/>
+                <div>
+                  <p>{project.asset_names[index]}</p>
+                  <audio controls key={url} src={url}/>
+                </div>
               )
-            })}
+            })) : (<h3>Loading</h3>)
+            }
       </div>
     );
 }

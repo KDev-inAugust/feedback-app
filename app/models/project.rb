@@ -10,4 +10,10 @@ class Project < ApplicationRecord
          end
      end
 
+     def asset_names
+        assets.map do |asset| 
+          asset.filename
+        end
+     end
+
 end
