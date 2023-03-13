@@ -5,19 +5,17 @@ import React, {useEffect, useState} from 'react';
 function Project(){
     const [selectedAsset, setSelectedAsset] = useState([]);
     const [projectId, setProjectId] = useState(1);
-    const [project, setProject] = useState(null)
-    const [projectName, setProjectName] = useState("");
-    const [projectAssets, setProjectAssets] = useState([]);
-    const [projectUrls, setProjectUrls] = useState([]);
-    const [assetName, setAssetName] = useState("")
+    const [project, setProject] = useState(null);
+    const [assetName, setAssetName] = useState("");
+    const [projectURLs, setProjectURLs] = useState([])
     
   // ------- get the Project data for this project -------
     useEffect(()=>{
       fetch (`/projects/${projectId}/`)
       .then(r=>r.json())
-      .then(data=>{setProject(data); setProjectName(data.name); 
-        setProjectUrls(data.asset_urls); 
-        console.log(data.asset_names)
+      .then(data=>{
+        setProjectURLs(data.asset_urls)
+        setProject(data);  
       })
     },[])
     
@@ -25,6 +23,13 @@ function Project(){
     function handleChooseAsset(e){
       setSelectedAsset(Array.from(e.target.files));
       console.log(e.target.files)
+    }
+
+  // -----------Set The Name of the asset before upload
+
+    function handleSetAssetName (e){
+      console.log(e.target.value);
+      setAssetName(e.target.value)
     }
   // -------Attach The Asset to the Project ---------
     function handleAssetSubmit(e){
@@ -34,7 +39,7 @@ function Project(){
   
     formData.append('asset', selectedAsset[0])
     formData.append('id', projectId)
-    formData.append('name', "Mar 12 Check")
+    formData.append('name', assetName)
   
   
       for (const value of formData.values()) {
@@ -47,35 +52,52 @@ function Project(){
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          console.log([...projectURLs, data ]);
+         setProject([...projectURLs, data ])
         })
     }
-    // ------------
-    
+    // ------------ Remove Asset From Project -----------
+    function handleDeleteAsset (e) {
+      console.log(e.target.value);
+        fetch("/asset_purge",{
+
+        method: "PUT",
+        headers: {
+        "Content-Type":"application/json",
+                    },
+
+          body: JSON.stringify({
+            project_id: project.id,
+            asset_id: e.target.value,
+            })
+        }).then(r=>r.json())
+        .then((data)=>{
+          console.log(projectURLs.filter(index=>index!==[data])); 
+          setProjectURLs(projectURLs.filter(index=>index!==[data]))
+    }
+      )
+    }
 
     // ----------- upload and display the uploaded asset ---------
   
     return (
-      <div className="App">
-        <header className="App-header">
-        <h1>The Feedback App</h1>
-        </header>
-        
-        <input 
-          type="file" 
+      <div>
+        <input type="file" 
           onChange={(e)=>handleChooseAsset(e)}
         />
-        <input type="text" placeholder="file name" onChange={setAssetName}/>
+        <input type="text" placeholder="file name" onChange={handleSetAssetName}/>
         <button onClick={handleAssetSubmit}>add file to project</button>
   
-        <div>{projectName}</div>
+        <h1>{project ? project.name : "Loading Project"}</h1>
 
-            { project ? 
-            (project.asset_urls.map((url, index)=>{
+            {project ? 
+            (projectURLs.map((url, index)=>{
               return (
                 <div>
                   <p>{project.asset_names[index]}</p>
                   <audio controls key={url} src={url}/>
+                  <button key={project.asset_ids[index]} onClick={handleDeleteAsset} 
+                          value={project.asset_ids[index]}>delete</button>
                 </div>
               )
             })) : (<h3>Loading</h3>)

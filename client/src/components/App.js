@@ -4,7 +4,12 @@ import Project from './Project';
 
 function App() {
   return(
-    <Project />
+    <div className='App'>
+      <header className="App-header">
+          <h1>The Feedback App</h1>
+      </header>
+      <Project />
+    </div>
   )
 }
 
