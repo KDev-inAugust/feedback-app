@@ -1,5 +1,6 @@
 import '../App.css';
 import React, {useEffect, useState} from 'react';
+import AssetContainer from './AssetContainer';
 
 
 function Project(){
@@ -7,7 +8,8 @@ function Project(){
     const [projectId, setProjectId] = useState(1);
     const [project, setProject] = useState(null);
     const [assetName, setAssetName] = useState("");
-    const [projectURLs, setProjectURLs] = useState([])
+    const [projectURLs, setProjectURLs] = useState([]);
+    const [assetNames, setAssetNames] = useState([])
     
   // ------- get the Project data for this project -------
     useEffect(()=>{
@@ -16,6 +18,7 @@ function Project(){
       .then(data=>{
         setProjectURLs(data.asset_urls)
         setProject(data);  
+        setAssetNames(data.asset_names)
       })
     },[])
     
@@ -52,8 +55,9 @@ function Project(){
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log([...projectURLs, data ]);
-         setProject([...projectURLs, data ])
+          console.log(data.path, data.name);
+         setProjectURLs([...projectURLs, data.path ]);
+         setAssetNames([...assetNames, data.name])
         })
     }
     // ------------ Remove Asset From Project -----------
@@ -78,32 +82,23 @@ function Project(){
       )
     }
 
-    // ----------- upload and display the uploaded asset ---------
-  
     return (
       <div>
-        <input type="file" 
-          onChange={(e)=>handleChooseAsset(e)}
+        <AssetContainer 
+        project={project}
+        projectURLs={projectURLs}
+        handleChooseAsset={handleChooseAsset}
+        handleSetAssetName={handleSetAssetName}
+        handleAssetSubmit={handleAssetSubmit}
+        handleDeleteAsset={handleDeleteAsset}
+        assetNames={assetNames}
+        
         />
-        <input type="text" placeholder="file name" onChange={handleSetAssetName}/>
-        <button onClick={handleAssetSubmit}>add file to project</button>
-  
-        <h1>{project ? project.name : "Loading Project"}</h1>
-
-            {project ? 
-            (projectURLs.map((url, index)=>{
-              return (
-                <div>
-                  <p>{project.asset_names[index]}</p>
-                  <audio controls key={url} src={url}/>
-                  <button key={project.asset_ids[index]} onClick={handleDeleteAsset} 
-                          value={project.asset_ids[index]}>delete</button>
-                </div>
-              )
-            })) : (<h3>Loading</h3>)
-            }
       </div>
-    );
-}
+    )
+
+  }
+
+ 
 
 export default Project;
