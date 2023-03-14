@@ -55,9 +55,13 @@ function Project(){
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.path, data.name);
-         setProjectURLs([...projectURLs, data.path ]);
-         setAssetNames([...assetNames, data.name])
+        //   console.log(data.path, data.name);
+        //  setProjectURLs([...projectURLs, data.path ]);
+        //  setAssetNames([...assetNames, data.name])
+        setProjectURLs(data.asset_urls);
+          setProject(data);  
+          setAssetNames(data.asset_names);
+          console.log(data);
         })
     }
     // ------------ Remove Asset From Project -----------
@@ -67,7 +71,7 @@ function Project(){
 
         method: "PUT",
         headers: {
-        "Content-Type":"application/json",
+          "Content-Type":"application/json",
                     },
 
           body: JSON.stringify({
@@ -76,8 +80,13 @@ function Project(){
             })
         }).then(r=>r.json())
         .then((data)=>{
-          console.log(projectURLs.filter(index=>index!==[data])); 
-          setProjectURLs(projectURLs.filter(index=>index!==[data]))
+          // console.log("data", data, "projectUrls", projectURLs);
+          // console.log(projectURLs.filter(index=>index!==data[0])); 
+          // setProjectURLs(projectURLs.filter(index=>index!==data[0]))
+          setProjectURLs(data.asset_urls);
+          setProject(data);  
+          setAssetNames(data.asset_names);
+          console.log(data)
     }
       )
     }
@@ -92,7 +101,6 @@ function Project(){
         handleAssetSubmit={handleAssetSubmit}
         handleDeleteAsset={handleDeleteAsset}
         assetNames={assetNames}
-        
         />
       </div>
     )
