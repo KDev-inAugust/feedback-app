@@ -3,6 +3,13 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # added by me to link to AWS
+  config.action_mailer.default_url_options = { host: "https://feedback-app-ex6q.onrender.com/" }
+  Rails.application.routes.default_url_options[:host] = "https://feedback-app-ex6q.onrender.com/"
+
+  config.require_master_key = true
+
+  
   # Code is not reloaded between requests.
   config.cache_classes = true
 
