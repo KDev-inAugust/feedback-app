@@ -16,12 +16,7 @@ function AssetContainer ({
   
  return (
     <div>
-      <input type="file" 
-        onChange={(e)=>handleChooseAsset(e)}
-      />
-      <input type="text" placeholder="file name" onChange={handleSetAssetName}/>
-      <button onClick={handleAssetSubmit}>add file to project</button>
-
+      
       <h1>{project ? project.name : "Loading Project"}</h1>
 
           {project ? 
@@ -36,6 +31,12 @@ function AssetContainer ({
             )
           })) : (<h3>Loading</h3>)
           }
+
+      <input type="file" 
+        onChange={(e)=>handleChooseAsset(e)}
+      />
+      <input type="text" placeholder="file name" onChange={handleSetAssetName}/>
+      <button onClick={handleAssetSubmit}>add file to project</button>
     </div>
   );
 }

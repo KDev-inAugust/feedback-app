@@ -1,19 +1,22 @@
 import '../App.css';
 import React, {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import AssetContainer from './AssetContainer';
 
 
 function Project(){
     const [selectedAsset, setSelectedAsset] = useState([]);
-    const [projectId, setProjectId] = useState(1);
     const [project, setProject] = useState(null);
     const [assetName, setAssetName] = useState("");
     const [projectURLs, setProjectURLs] = useState([]);
     const [assetNames, setAssetNames] = useState([])
     
+    const { id } = useParams()
+    console.log("params in Project", id)
+
   // ------- get the Project data for this project -------
     useEffect(()=>{
-      fetch (`/projects/${projectId}/`)
+      fetch (`/projects/${id}/`)
       .then(r=>r.json())
       .then(data=>{
         setProjectURLs(data.asset_urls)
@@ -41,7 +44,7 @@ function Project(){
       const formData = new FormData();
   
     formData.append('asset', selectedAsset[0])
-    formData.append('id', projectId)
+    formData.append('id', id)
     formData.append('name', assetName)
   
   
@@ -80,9 +83,6 @@ function Project(){
             })
         }).then(r=>r.json())
         .then((data)=>{
-          // console.log("data", data, "projectUrls", projectURLs);
-          // console.log(projectURLs.filter(index=>index!==data[0])); 
-          // setProjectURLs(projectURLs.filter(index=>index!==data[0]))
           setProjectURLs(data.asset_urls);
           setProject(data);  
           setAssetNames(data.asset_names);
