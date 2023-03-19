@@ -19,6 +19,7 @@ gem 'aws-sdk', '~> 3.1'
 
 gem 'active_model_serializers', '~> 0.10.13'
 
+gem 'jsonapi-serializer', '~> 2.2'
 # --------end added gems ------------
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]

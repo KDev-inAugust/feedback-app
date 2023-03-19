@@ -1466,6 +1466,8 @@ GEM
       reline (>= 0.3.0)
     jmespath (1.6.2)
     jsonapi-renderer (0.2.2)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -1548,6 +1550,7 @@ DEPENDENCIES
   bcrypt (~> 3.1, >= 3.1.18)
   bootsnap
   debug
+  jsonapi-serializer (~> 2.2)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)

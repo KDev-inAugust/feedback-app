@@ -52,7 +52,7 @@ function Project(){
         console.log('form data values', value);
       }
   
-      fetch("/add_asset", {
+      fetch("/add_asset/", {
         method: "POST",
         body: formData,
       })
