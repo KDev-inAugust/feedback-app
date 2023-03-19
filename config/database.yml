@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: the_feedback_app_production
-  username: the_feedback_app
-  password: <%= ENV["THE_FEEDBACK_APP_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
