@@ -34,7 +34,6 @@ function Project(){
   // -----------Set The Name of the asset before upload
 
     function handleSetAssetName (e){
-      console.log(e.target.value);
       setAssetName(e.target.value)
     }
   // -------Attach The Asset to the Project ---------

@@ -11,6 +11,14 @@ class ProjectsController < ApplicationController
         render json: project
     end
 
+    def destroy
+        project=Project.find_by(id: params[:id])
+        assets=Project.find_by(id: params[:id]).assets.all
+        assets.purge
+        project.destroy
+        render json: project
+    end
+
     def add_asset
         project = Project.find_by(id: params[:id])
         project.assets.attach(params[:asset])

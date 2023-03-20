@@ -9,7 +9,7 @@ function ProjectContainer ({user}){
    
    {user? user.projects.map(index=>{
     return(<Link to={`/projects/${index.id}`}>{index.name}</Link>)
-}) : "loading projects"}
+   }) : "loading projects"}
    
    
    </div>

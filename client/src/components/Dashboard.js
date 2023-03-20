@@ -6,9 +6,10 @@ import {
 import ProjectContainer from './ProjectContainer';
 import Project from './Project';
 import Nav from './Nav';
+import Settings from './Settings';
 
 
-function Dashboard ({user}){
+function Dashboard ({user, deleteProject}){
 
   const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ function Dashboard ({user}){
         {
           path: '/Projects',
           element: <ProjectContainer user={user}/>
+        },
+        {
+          path: '/Settings',
+          element: <Settings user={user} deleteProject={deleteProject}/>
         },
         {
           path: '/projects/:id',
@@ -36,21 +41,6 @@ function Dashboard ({user}){
             <RouterProvider router={router} />
             </div>
             
-           
-
-
-        {/* original nav concept */}
-
-        {/* <nav>
-          {user? user.projects.map(index=>{
-                return(<li key={index.id}><a href={`/projects/${index.id}`}>{index.name}</a></li>)
-            }) : "loading projects"}
-        </nav> */}
-
-        {/* <Routes>
-            <Route path='/projects/:id' element={<Project />}/>
-        </Routes> */}
-
 
     </div>
     )

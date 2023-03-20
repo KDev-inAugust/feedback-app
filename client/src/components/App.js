@@ -22,6 +22,7 @@ function App() {
   },[])
 
 
+  // --------LOG IN function ---------
   function handleLogin(){
   fetch("/me")
   .then((r)=> {
@@ -31,16 +32,24 @@ function App() {
     else
     r.json().then((data) => setError(data.error))
     })
-
 }
 
+// --------LOG OUT function ---------
   function handleLogout(){
     fetch("/logout", {
       method: "DELETE",
     }).then(()=> setUser(null))
   }
+// ---------DELETE PROJECT function --------
+  function deleteProject(e){
+    console.log(`delete project triggered on ${e.target.value}`);
 
+    fetch (`/projects/${e.target.value}`,{
+      method: "DELETE",
+    }).then(r=>r.json()).then(data=>console.log(data))
+  }
 
+// ----------the RETURN -----------
    if(user!==null)  { 
   return(
     <div className='App'>
@@ -49,7 +58,7 @@ function App() {
           <button onClick={handleLogout}>Logout</button>
       </header>
       <h2>{`hello "${user.name}"`}</h2>
-      <Dashboard user={user}/>
+      <Dashboard user={user} deleteProject={deleteProject}/>
     </div>
   )
      }

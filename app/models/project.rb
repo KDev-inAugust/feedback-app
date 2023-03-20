@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
      # this is an active storage macro
-     has_many_attached :assets
+     has_many_attached :assets, dependent: :destroy
 
      #  this method generates the urls for the assets that we will use
      #  as the src in an audio element

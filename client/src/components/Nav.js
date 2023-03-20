@@ -7,7 +7,7 @@ export default function Nav({user}){
         <div>
             <Link to='/'>Dashboard</Link>
             <Link to='/Projects'>Projects</Link>
-             
+            <Link to='/Settings'>Settings</Link>
             
             <div>
               <Outlet />
