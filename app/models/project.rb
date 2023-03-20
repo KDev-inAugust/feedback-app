@@ -1,4 +1,5 @@
 class Project < ApplicationRecord
+    validates :name, presence: true
      # this is an active storage macro
      has_many_attached :assets, dependent: :destroy
 

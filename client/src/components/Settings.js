@@ -1,8 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
-function Settings ({user, deleteProject}){
+function Settings ({user, deleteProject, addProject}){
+
+    const [newProjectName, setNewProjectName] = useState("");
+
+    function handleAddProject(e){
+        e.preventDefault();
+        addProject(newProjectName);
+    }
+
+    function handleProjectName(e){
+        console.log(e.target.value);
+        setNewProjectName(e.target.value)
+    }
 
     return(
         <div>
@@ -16,6 +29,12 @@ function Settings ({user, deleteProject}){
                 </div>
             )
         }) : "loading projects"}
+
+            <h2>Create Project</h2>
+            <form id="add-project" onSubmit={handleAddProject}>
+                <input type='text' onChange={handleProjectName}/>
+            </form>
+            <button type="submit" form="add-project">add project</button>
             </div>
     )
 }

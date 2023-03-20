@@ -40,6 +40,23 @@ function App() {
       method: "DELETE",
     }).then(()=> setUser(null))
   }
+
+// ------------ADD PROJECT function -----------
+  function addProject(name){
+    console.log(`add project triggered with name ${name} and user id ${user.id}`);
+
+    fetch("/projects",{
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        name: name
+    })
+    }).then(r=>r.json()).then((project)=>console.log(project))
+
+  }
 // ---------DELETE PROJECT function --------
   function deleteProject(e){
     console.log(`delete project triggered on ${e.target.value}`);
@@ -58,7 +75,7 @@ function App() {
           <button onClick={handleLogout}>Logout</button>
       </header>
       <h2>{`hello "${user.name}"`}</h2>
-      <Dashboard user={user} deleteProject={deleteProject}/>
+      <Dashboard user={user} deleteProject={deleteProject} addProject={addProject}/>
     </div>
   )
      }

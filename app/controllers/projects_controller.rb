@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-   
+    before_action :authorize, only: [:create, :destroy]
     def index
         projects=Project.all
         render json: projects
@@ -9,6 +9,15 @@ class ProjectsController < ApplicationController
         project=Project.find_by(id: params[:id])
         assets=project.assets.all
         render json: project
+    end
+
+    def create
+        project=Project.create(project_params)
+        if project.valid?
+            render json: project
+        else 
+            render json: { errors: project.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     def destroy
@@ -31,6 +40,16 @@ class ProjectsController < ApplicationController
         asset.purge
         project=Project.find_by(id: params[:project_id])
         render json: project
+    end
+
+    private
+
+    def project_params
+        params.permit(:name, :user_id)
+    end
+
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 
 end

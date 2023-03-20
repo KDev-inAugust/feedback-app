@@ -9,7 +9,7 @@ import Nav from './Nav';
 import Settings from './Settings';
 
 
-function Dashboard ({user, deleteProject}){
+function Dashboard ({user, deleteProject, addProject}){
 
   const router = createBrowserRouter([
     {
@@ -22,7 +22,7 @@ function Dashboard ({user, deleteProject}){
         },
         {
           path: '/Settings',
-          element: <Settings user={user} deleteProject={deleteProject}/>
+          element: <Settings user={user} deleteProject={deleteProject} addProject={addProject}/>
         },
         {
           path: '/projects/:id',
