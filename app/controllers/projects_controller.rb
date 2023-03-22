@@ -32,6 +32,9 @@ class ProjectsController < ApplicationController
         project = Project.find_by(id: params[:id])
         project.assets.attach(params[:asset])
         project.assets.last.update(filename: params[:name])
+        
+        ActiveStorageAttachment.last.update(project_id: params[:id])
+        
         render json: project
     end
 

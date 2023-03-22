@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
     def index
         users=User.all
-        render json: users
+        render json: users, include: ['active_storage_attachments.comments']
     end
 
     def show

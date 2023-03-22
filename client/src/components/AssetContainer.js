@@ -1,5 +1,6 @@
 import '../App.css';
 import React, {useEffect, useState} from 'react';
+import Asset from './Asset';
 
 function AssetContainer ({
     project, 
@@ -12,31 +13,36 @@ function AssetContainer ({
     }) {
 
 
+
  // ----------- upload and display the uploaded asset ---------
   
  return (
     <div>
-      
-      <h1>{project ? project.name : "Loading Project"}</h1>
-
-          {project ? 
-          (projectURLs.map((url, index)=>{
-            return (
-              <div key={index}>
-                <p>{assetNames[index]}</p>
-                <audio controls key={url} src={url}/>
-                <button key={project.asset_ids[index]} onClick={handleDeleteAsset} 
-                        value={project.asset_ids[index]}>delete</button>
-              </div>
-            )
-          })) : (<h3>Loading</h3>)
-          }
-
-      <input type="file" 
+       <input type="file" 
         onChange={(e)=>handleChooseAsset(e)}
       />
       <input type="text" placeholder="file name" onChange={handleSetAssetName}/>
       <button onClick={handleAssetSubmit}>add file to project</button>
+      
+      <h1>{project ? project.name : "Loading Project"}</h1>
+        
+          {project ? 
+          (projectURLs.map((url, index)=>{
+            return (
+              <Asset 
+              key={url}
+              url={url} 
+              index={index} 
+              project={project} 
+              assetNames={assetNames}
+              handleDeleteAsset={handleDeleteAsset}
+              comments={project.active_storage_attachments[index].comments}
+              />
+            )
+          })) : (<h3>Loading</h3>)
+          }
+
+     
     </div>
   );
 }

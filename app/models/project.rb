@@ -2,6 +2,8 @@ class Project < ApplicationRecord
     validates :name, presence: true
      # this is an active storage macro
      has_many_attached :assets, dependent: :destroy
+     has_many :active_storage_attachments
+     has_many :comments, through: :active_storage_attachments
 
      #  this method generates the urls for the assets that we will use
      #  as the src in an audio element
@@ -25,7 +27,6 @@ class Project < ApplicationRecord
 
      def asset_id_to_URL(params)
         asset=assets.find_by(id: params)
-        debugger
         Rails.application.routes.url_helpers.rails_blob_path(asset, only_path: true)
      end
 

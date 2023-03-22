@@ -9,7 +9,7 @@ function Project(){
     const [project, setProject] = useState(null);
     const [assetName, setAssetName] = useState("");
     const [projectURLs, setProjectURLs] = useState([]);
-    const [assetNames, setAssetNames] = useState([])
+    const [assetNames, setAssetNames] = useState([]);
     
     const { id } = useParams()
     console.log("params in Project", id)
@@ -21,7 +21,7 @@ function Project(){
       .then(data=>{
         setProjectURLs(data.asset_urls)
         setProject(data);  
-        setAssetNames(data.asset_names)
+        setAssetNames(data.asset_names);
       })
     },[])
     
@@ -89,6 +89,7 @@ function Project(){
     }
       )
     }
+    
 
     return (
       <div>
