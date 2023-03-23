@@ -2,7 +2,7 @@ class Project < ApplicationRecord
     validates :name, presence: true
      # this is an active storage macro
      has_many_attached :assets, dependent: :destroy
-     has_many :active_storage_attachments
+     has_many :active_storage_attachments, dependent: :destroy
      has_many :comments, through: :active_storage_attachments
 
      #  this method generates the urls for the assets that we will use

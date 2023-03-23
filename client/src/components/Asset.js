@@ -1,14 +1,15 @@
 import React from "react";
 import { useState } from "react";
+import AssetComments from "./AssetComments";
 
 function Asset ({url, index, project, assetNames, comments, handleDeleteAsset}){
 
 
     const [showCommentForm, setShowCommentForm] = useState(false);
     const [commentTimeStamp, setCommentTimeStamp] = useState(0);
-    const [commentText, setCommentText] = useState("")
+    const [commentText, setCommentText] = useState("");
+    const [assetComments, setAssetComments]=useState(comments);
 
-console.log(comments)
    
 //  --------------ADD COMMENT -------
 function handleShowCommentForm (e){
@@ -24,7 +25,7 @@ function handleShowCommentForm (e){
 // --------------- the comment form -----------
 let commentForm=
 <div>
-<p>comment at {commentTimeStamp} minutes</p>
+<p>comment at {commentTimeStamp} seconds</p>
 <input type="text" onChange={e=>setCommentText(e.target.value)}/>
 <button onClick={handleAddComment}>add and close</button>
 </div>
@@ -41,17 +42,17 @@ function handleAddComment (){
     body: JSON.stringify({
         active_storage_attachment_id: project.asset_ids[index],
         user_id: project.user_id,
-        track_time: 5,
+        track_time: commentTimeStamp,
         body: commentText
     })
-    }).then(r=>r.json()).then((data)=>{console.log(data)})
+    }).then(r=>r.json()).then((data)=>{setAssetComments(data)})
 
     setShowCommentForm(false);
   }
 
 
 return (
-    <div key={index}>
+    <div id="asset" key={index}>
                 <p>{assetNames[index]}</p>
                 <p>{project.asset_ids[index]}</p>
                 <audio controls 
@@ -65,13 +66,11 @@ return (
 
                 {showCommentForm? 
                     commentForm: 
-                    <p>comment form hidden</p>}
-
-                {comments.map((comment)=>{
-                    return(<p className="comment">{comment.body}</p>)
-                })}
+                    <p>--</p>}
+                <AssetComments assetComments={assetComments}/>
+                
                 <button onClick={handleDeleteAsset} key={project.asset_ids[index]}  
-                        value={project.asset_ids[index]}>delete</button>
+                        value={project.asset_ids[index]}>delete this file and all comments</button>
               </div>
     )
 }

@@ -7,7 +7,8 @@ class CommentsController < ApplicationController
 
     def create
         comment=Comment.create(comment_params)
-        render json: comment
+        comments=Comment.where(active_storage_attachment_id: params[:active_storage_attachment_id])
+        render json: comments
     end
 
     def destroy
@@ -15,6 +16,7 @@ class CommentsController < ApplicationController
         comment.destroy
     end
 
+    
     private
 
     def comment_params

@@ -10,6 +10,7 @@ function AssetContainer ({
     projectURLs,
     handleDeleteAsset,
     assetNames,
+    fileNameForDisplay,
     }) {
 
 
@@ -18,9 +19,12 @@ function AssetContainer ({
   
  return (
     <div>
-       <input type="file" 
+      <label for="asset-upload-field">
+       <input id="asset-upload-field" type="file" 
         onChange={(e)=>handleChooseAsset(e)}
-      />
+        />
+      </label>
+      <p>{fileNameForDisplay}</p>
       <input type="text" placeholder="file name" onChange={handleSetAssetName}/>
       <button onClick={handleAssetSubmit}>add file to project</button>
       

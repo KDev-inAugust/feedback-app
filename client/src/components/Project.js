@@ -10,6 +10,7 @@ function Project(){
     const [assetName, setAssetName] = useState("");
     const [projectURLs, setProjectURLs] = useState([]);
     const [assetNames, setAssetNames] = useState([]);
+    const [fileNameForDisplay, setFileNameForDisplay] = useState("");
     
     const { id } = useParams()
     console.log("params in Project", id)
@@ -28,7 +29,7 @@ function Project(){
   // ------ Select The Asset ------------ 
     function handleChooseAsset(e){
       setSelectedAsset(Array.from(e.target.files));
-      console.log(e.target.files)
+      setFileNameForDisplay(e.target.files[0].name)
     }
 
   // -----------Set The Name of the asset before upload
@@ -47,9 +48,9 @@ function Project(){
     formData.append('name', assetName)
   
   
-      for (const value of formData.values()) {
-        console.log('form data values', value);
-      }
+      // for (const value of formData.values()) {
+      //   console.log('form data values', value);
+      // }
   
       fetch("/add_asset/", {
         method: "POST",
@@ -64,6 +65,7 @@ function Project(){
           setProject(data);  
           setAssetNames(data.asset_names);
           console.log(data);
+          setFileNameForDisplay("");
         })
     }
     // ------------ Remove Asset From Project -----------
@@ -92,7 +94,7 @@ function Project(){
     
 
     return (
-      <div>
+      <div id="project">
         <AssetContainer 
         project={project}
         projectURLs={projectURLs}
@@ -101,6 +103,7 @@ function Project(){
         handleAssetSubmit={handleAssetSubmit}
         handleDeleteAsset={handleDeleteAsset}
         assetNames={assetNames}
+        fileNameForDisplay={fileNameForDisplay}
         />
       </div>
     )
