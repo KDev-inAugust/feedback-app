@@ -40,6 +40,11 @@ function Project(){
   // -------Attach The Asset to the Project ---------
     function handleAssetSubmit(e){
       e.preventDefault()
+
+      console.log("submit triggered");
+      let loader=document.getElementById("loader");
+      loader.className="loader"
+      
       
       const formData = new FormData();
   
@@ -48,9 +53,9 @@ function Project(){
     formData.append('name', assetName)
   
   
-      // for (const value of formData.values()) {
-      //   console.log('form data values', value);
-      // }
+      for (const value of formData.values()) {
+        console.log('form data values', value);
+      }
   
       fetch("/add_asset/", {
         method: "POST",
@@ -64,8 +69,8 @@ function Project(){
         setProjectURLs(data.asset_urls);
           setProject(data);  
           setAssetNames(data.asset_names);
-          console.log(data);
           setFileNameForDisplay("");
+          loader.className="hidden";
         })
     }
     // ------------ Remove Asset From Project -----------
@@ -95,6 +100,7 @@ function Project(){
 
     return (
       <div id="project">
+        <div id="loader"></div>
         <AssetContainer 
         project={project}
         projectURLs={projectURLs}

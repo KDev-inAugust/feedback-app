@@ -29,6 +29,31 @@
   font-weight: 900;
 }
 
+.hidden {
+  display: none;
+}
+
+.loader{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3498db;
+  animation: spin 1s ease-in-out infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+
 #asset {
   border: 5px;
   border-color: rgba(134, 111, 189, 0.237);
