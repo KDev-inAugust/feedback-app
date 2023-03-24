@@ -8,7 +8,7 @@ function ProjectContainer ({user}){
    <h1>Projects</h1>
    
    {user? user.projects.map(index=>{
-    return(<Link to={`/projects/${index.id}`}>{index.name}</Link>)
+    return(<Link to={`/Project/${index.id}`}>{index.name}</Link>)
    }) : "loading projects"}
    
    

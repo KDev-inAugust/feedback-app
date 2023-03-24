@@ -25,7 +25,7 @@ function Dashboard ({user, deleteProject, addProject}){
           element: <Settings user={user} deleteProject={deleteProject} addProject={addProject}/>
         },
         {
-          path: '/projects/:id',
+          path: '/Project/:id',
           element: <Project />
         }
       ]
