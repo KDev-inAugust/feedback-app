@@ -9,7 +9,7 @@ import Nav from './Nav';
 import Settings from './Settings';
 
 
-function Dashboard ({user, deleteProject, addProject}){
+function Dashboard ({user, userProjectsArray, deleteProject, addProject}){
 
   const router = createBrowserRouter([
     {
@@ -18,11 +18,11 @@ function Dashboard ({user, deleteProject, addProject}){
       children: [
         {
           path: '/Projects',
-          element: <ProjectContainer user={user}/>
+          element: <ProjectContainer user={user} userProjectsArray={userProjectsArray}/>
         },
         {
           path: '/Settings',
-          element: <Settings user={user} deleteProject={deleteProject} addProject={addProject}/>
+          element: <Settings user={user} userProjectsArray={userProjectsArray} deleteProject={deleteProject} addProject={addProject}/>
         },
         {
           path: '/Project/:id',
@@ -33,7 +33,6 @@ function Dashboard ({user, deleteProject, addProject}){
     
          
   ]);
-  console.log(user.projects)
     
     return (
         <div className='dashboard'>

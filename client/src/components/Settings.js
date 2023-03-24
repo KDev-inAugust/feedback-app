@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 
-function Settings ({user, deleteProject, addProject}){
+function Settings ({user, userProjectsArray, deleteProject, addProject}){
 
     const [newProjectName, setNewProjectName] = useState("");
 
@@ -13,7 +13,6 @@ function Settings ({user, deleteProject, addProject}){
     }
 
     function handleProjectName(e){
-        console.log(e.target.value);
         setNewProjectName(e.target.value)
     }
 
@@ -21,10 +20,10 @@ function Settings ({user, deleteProject, addProject}){
         <div>
             <h1>Settings</h1>
             <h2>Project List</h2>
-            {user? user.projects.map(index=>{
+            {user? userProjectsArray.map(index=>{
             return(
-                <div>
-                    <Link to={`/projects/${index.id}`}>{index.name}</Link>
+                <div key={index.id}>
+                    <Link to={`/Project/${index.id}`}>{index.name}</Link>
                     <button onClick={deleteProject} value={index.id}>delete project</button>
                 </div>
             )
@@ -35,7 +34,7 @@ function Settings ({user, deleteProject, addProject}){
                 <input type='text' onChange={handleProjectName}/>
             </form>
             <button type="submit" form="add-project">add project</button>
-            </div>
+        </div>
     )
 }
 

@@ -20,8 +20,7 @@ function AssetContainer ({
  return (
     <div>
       <label for="asset-upload-field">
-       <input id="asset-upload-field" type="file" 
-        onChange={(e)=>handleChooseAsset(e)}
+       <input id="asset-upload-field" type="file" onChange={(e)=>handleChooseAsset(e)}
         />
       </label>
       <p>{fileNameForDisplay}</p>
@@ -46,7 +45,6 @@ function AssetContainer ({
           })) : (<h3>Loading</h3>)
           }
 
-     
     </div>
   );
 }

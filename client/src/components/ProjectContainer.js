@@ -2,13 +2,13 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 
 
-function ProjectContainer ({user}){
+function ProjectContainer ({user, userProjectsArray}){
    return(
     <div>
    <h1>Projects</h1>
    
-   {user? user.projects.map(index=>{
-    return(<Link to={`/Project/${index.id}`}>{index.name}</Link>)
+   {user? userProjectsArray.map(index=>{
+    return(<Link key={index.id} to={`/Project/${index.id}`}>{index.name}</Link>)
    }) : "loading projects"}
    
    

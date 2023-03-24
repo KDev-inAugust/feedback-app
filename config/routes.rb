@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
   get "/me", to: "users#show"
   post "/add_asset", to: "projects#add_asset"
-  put "/asset_purge", to: "projects#purge"
+  put "/asset_purge", to: "projects#asset_purge"
   # Defines the root path route ("/")
   # root "articles#index"
 end

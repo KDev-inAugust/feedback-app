@@ -2,13 +2,13 @@ class ProjectsController < ApplicationController
     before_action :authorize, only: [:create, :destroy]
     def index
         projects=Project.all
-        render json: projects
+        render json: projects, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
     end
 
     def show
         project=Project.find_by(id: params[:id])
         assets=project.assets.all
-        render json: project
+        render json: project, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
     end
 
     def create
@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
     def destroy
         project=Project.find_by(id: params[:id])
         assets=Project.find_by(id: params[:id]).assets.all
+        asas=ActiveStorageAttachment.where(project_id: params[:id]).destroy_all
         assets.purge
         project.destroy
         render json: project
@@ -38,7 +39,7 @@ class ProjectsController < ApplicationController
         render json: project
     end
 
-    def purge
+    def asset_purge
         asset=Project.find_by(id: params[:project_id]).assets.find_by(id: params[:asset_id])
         asa=ActiveStorageAttachment.find_by(id: params[:asset_id])
         asa.destroy

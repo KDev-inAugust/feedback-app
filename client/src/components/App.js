@@ -9,6 +9,7 @@ import LogIn from './Login';
 function App() {
   const [user, setUser] = useState(null);
   const [error, setError] =  useState([]);
+  const [userProjectsArray, setUserProjectsArray] = useState([])
   // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 
 
@@ -16,7 +17,10 @@ function App() {
     fetch("/me")
     .then((r)=> {
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+        r.json().then((user) => {
+          setUser(user);
+          setUserProjectsArray(user.projects)
+        });
       }
     })
   },[])
@@ -54,7 +58,7 @@ function App() {
         user_id: user.id,
         name: name
     })
-    }).then(r=>r.json()).then((project)=>console.log(project))
+    }).then(r=>r.json()).then((project)=>setUserProjectsArray([...userProjectsArray, project]))
 
   }
 // ---------DELETE PROJECT function --------
@@ -63,7 +67,12 @@ function App() {
 
     fetch (`/projects/${e.target.value}`,{
       method: "DELETE",
-    }).then(r=>r.json()).then(data=>console.log(data))
+    }).then(r=>r.json()).then((project)=>{
+      let newProjectArray=userProjectsArray.filter((index)=>{return index.id!==project.id})
+      setUserProjectsArray(newProjectArray)
+    })
+      
+      
   }
 
 // ----------the RETURN -----------
@@ -75,7 +84,7 @@ function App() {
           <button onClick={handleLogout}>Logout</button>
       </header>
       <h2>{`hello "${user.name}"`}</h2>
-      <Dashboard user={user} deleteProject={deleteProject} addProject={addProject}/>
+      <Dashboard user={user} userProjectsArray={userProjectsArray} deleteProject={deleteProject} addProject={addProject}/>
     </div>
   )
      }

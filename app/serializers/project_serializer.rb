@@ -3,4 +3,6 @@ class ProjectSerializer < ActiveModel::Serializer
   has_many :assets
   has_many :active_storage_attachments
   has_many :comments, through: :active_storage_attachments
+
+
 end
