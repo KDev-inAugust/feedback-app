@@ -31,7 +31,7 @@ function App() {
   fetch("/me")
   .then((r)=> {
     if (r.ok) {
-      r.json().then((user) => {setUser(user); console.log(user)})
+      r.json().then((user) => {setUser(user); setUserProjectsArray(user.projects)})
     }
     else
     r.json().then((data) => setError(data.error))
@@ -42,7 +42,7 @@ function App() {
   function handleLogout(){
     fetch("/logout", {
       method: "DELETE",
-    }).then(()=> setUser(null))
+    }).then(()=> {setUser(null)})
   }
 
 // ------------ADD PROJECT function -----------
@@ -82,6 +82,7 @@ function App() {
       <header className="App-header">
           <h1>The Feedback App</h1>
           <button onClick={handleLogout}>Logout</button>
+          
       </header>
       <h2>{`hello "${user.name}"`}</h2>
       <Dashboard user={user} userProjectsArray={userProjectsArray} deleteProject={deleteProject} addProject={addProject}/>

@@ -23,7 +23,7 @@ function Settings ({user, userProjectsArray, deleteProject, addProject}){
             {user? userProjectsArray.map(index=>{
             return(
                 <div key={index.id}>
-                    <Link to={`/Project/${index.id}`}>{index.name}</Link>
+                    <Link to={`/Project/${index.id}`} className="project-link">{index.name}</Link>
                     <button onClick={deleteProject} value={index.id}>delete project</button>
                 </div>
             )

@@ -11,19 +11,28 @@ function Project(){
     const [projectURLs, setProjectURLs] = useState([]);
     const [assetNames, setAssetNames] = useState([]);
     const [fileNameForDisplay, setFileNameForDisplay] = useState("");
-    
+    const [onLoadProjectText, setOnLoadProjectText] = useState("Loading")
     const { id } = useParams()
-    console.log("params in Project", id)
 
   // ------- get the Project data for this project -------
     useEffect(()=>{
       fetch (`/projects/${id}/`)
-      .then(r=>r.json())
-      .then(data=>{
-        setProjectURLs(data.asset_urls)
-        setProject(data);  
-        setAssetNames(data.asset_names);
-      })
+      .then((r)=>{
+        if (r.ok){
+          r.json().then(
+            (data)=>{
+            setProjectURLs(data.asset_urls);
+            setProject(data);  
+            setAssetNames(data.asset_names);
+          }
+          )
+    }
+    else 
+    r.json().then((error)=>{
+      console.log(error);
+      setOnLoadProjectText(error.error)
+    })
+  })
     },[])
     
   // ------ Select The Asset ------------ 
@@ -101,6 +110,7 @@ function Project(){
     return (
       <div id="project">
         <div id="loader"></div>
+        {project?  
         <AssetContainer 
         project={project}
         projectURLs={projectURLs}
@@ -111,6 +121,9 @@ function Project(){
         assetNames={assetNames}
         fileNameForDisplay={fileNameForDisplay}
         />
+        
+        : <p className='error-message'>{onLoadProjectText}</p>}
+       
       </div>
     )
 

@@ -3,32 +3,68 @@
   background-color: #282c34;
   min-height: 100vh;
   color: rgb(106, 145, 175);
+  
 }
 
 .dashboard {
-  background-color: rgb(53, 84, 74);
+  background-color: rgba(139, 169, 160, 0.382);
 }
 
 .App-header {
   background-color: #282c34;
-  
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
+/* .App-link {
   color: #61dafb;
+} */
+
+
+.error-message {
+  font-size: larger;
+  color: #2d9426;
+  border-style: ridge;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: #caca24;
+}
+
+.project-link, .project-link:visited{
+  margin: 5px;
+  color: #649622;
+}
+
+.nav-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ background-color:rgb(53, 84, 74);
+ 
+}
+
+
+.nav-link, .nav-link:visited{
+  color: #aeafd4;
+  font-size: x-large;
+  padding: 1em;
+  display: flex;
+  align-items: top;
+}
+
+.nav-link a.active {
+  font-size: xx-large;
+  color: yellowgreen;
 }
 
 .comment {
   color: rgb(173, 87, 72);
   font-weight: 900;
 }
-
+/* loader code */
 .hidden {
   display: none;
 }
@@ -38,7 +74,7 @@
   height: 40px;
   border-radius: 50%;
   border: 5px solid rgba(0, 0, 0, 0.1);
-  border-top-color: #3498db;
+  border-top-color: #216c9e;
   animation: spin 1s ease-in-out infinite;
   margin: 20px auto;
 }
@@ -48,10 +84,6 @@
     transform: rotate(360deg);
   }
 }
-
-
-
-
 
 
 #asset {

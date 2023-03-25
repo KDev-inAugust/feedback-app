@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-    before_action :authorize, only: [:create, :destroy]
+    before_action :authorize, only: [:create, :destroy, :show]
     def index
         projects=Project.all
         render json: projects, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
@@ -7,8 +7,10 @@ class ProjectsController < ApplicationController
 
     def show
         project=Project.find_by(id: params[:id])
-        assets=project.assets.all
+        if project.user_id==session[:user_id]
         render json: project, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
+        else render json: { error: "This Account Does Not have access to that path, click the project link above to access Project for this account"}, status: :unauthorized
+        end
     end
 
     def create
