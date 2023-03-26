@@ -5,7 +5,7 @@ export default function Nav({user}){
 
     return (
         <div>
-            <div class="nav-container">
+            <div className="nav-container">
                 <nav className="nav-link">
                         <NavLink to='/Projects' className="nav-link">Projects</NavLink>
                 </nav>

@@ -10,6 +10,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [error, setError] =  useState([]);
   const [userProjectsArray, setUserProjectsArray] = useState([])
+  const [userClientProjectArray, setUserClientProjectArray] = useState([])
   // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 
 
@@ -19,7 +20,14 @@ function App() {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user);
-          setUserProjectsArray(user.projects)
+          setUserProjectsArray(user.projects);
+          setUserClientProjectArray(user.client_projects);
+
+
+          user.client_projects.map((index)=>{
+            console.log(index.project_id)
+          })
+
         });
       }
     })
@@ -31,7 +39,10 @@ function App() {
   fetch("/me")
   .then((r)=> {
     if (r.ok) {
-      r.json().then((user) => {setUser(user); setUserProjectsArray(user.projects)})
+      r.json().then((user) => {setUser(user); 
+        setUserProjectsArray(user.projects);
+        setUserClientProjectArray(user.client_projects);
+      })
     }
     else
     r.json().then((data) => setError(data.error))
@@ -85,7 +96,12 @@ function App() {
           
       </header>
       <h2>{`hello "${user.name}"`}</h2>
-      <Dashboard user={user} userProjectsArray={userProjectsArray} deleteProject={deleteProject} addProject={addProject}/>
+      <Dashboard 
+      user={user} 
+      userProjectsArray={userProjectsArray} 
+      userClientProjectArray={userClientProjectArray}
+      deleteProject={deleteProject} 
+      addProject={addProject}/>
     </div>
   )
      }

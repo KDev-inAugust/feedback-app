@@ -2,8 +2,10 @@ class Project < ApplicationRecord
     validates :name, presence: true
      # this is an active storage macro
      has_many_attached :assets, dependent: :destroy
+     belongs_to :user
      has_many :active_storage_attachments, dependent: :destroy
      has_many :comments, through: :active_storage_attachments
+     has_many :client_projects
 
      #  this method generates the urls for the assets that we will use
      #  as the src in an audio element

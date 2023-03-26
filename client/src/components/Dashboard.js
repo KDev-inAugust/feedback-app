@@ -7,9 +7,10 @@ import ProjectContainer from './ProjectContainer';
 import Project from './Project';
 import Nav from './Nav';
 import Settings from './Settings';
+import ClientProject from './ClientProject';
 
 
-function Dashboard ({user, userProjectsArray, deleteProject, addProject}){
+function Dashboard ({user, userProjectsArray, userClientProjectArray, deleteProject, addProject}){
 
   const router = createBrowserRouter([
     {
@@ -18,7 +19,10 @@ function Dashboard ({user, userProjectsArray, deleteProject, addProject}){
       children: [
         {
           path: '/Projects',
-          element: <ProjectContainer user={user} userProjectsArray={userProjectsArray}/>
+          element: <ProjectContainer 
+          user={user} 
+          userProjectsArray={userProjectsArray}
+          userClientProjectArray={userClientProjectArray}/>
         },
         {
           path: '/Settings',
@@ -27,6 +31,10 @@ function Dashboard ({user, userProjectsArray, deleteProject, addProject}){
         {
           path: '/Project/:id',
           element: <Project />
+        },
+        {
+          path: 'ClientProject/:id',
+          element: <ClientProject />
         }
       ]
     },
