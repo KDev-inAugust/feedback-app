@@ -1,10 +1,11 @@
 import { NavLink, Outlet } from "react-router-dom";
-export default function Nav({user}){
+export default function Nav({handleLogout}){
 
     
 
     return (
         <div>
+            <button><NavLink to='/' onClick={handleLogout}>Logout</NavLink></button>
             <div className="nav-container">
                 <nav className="nav-link">
                         <NavLink to='/Projects' className="nav-link">Projects</NavLink>

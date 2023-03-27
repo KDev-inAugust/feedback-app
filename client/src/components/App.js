@@ -13,7 +13,7 @@ function App() {
   const [userClientProjectArray, setUserClientProjectArray] = useState([])
   // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
 
-
+// ----------this "ME" effect checks the "ME" anytime this page reloads------
   useEffect(()=>{
     fetch("/me")
     .then((r)=> {
@@ -22,12 +22,6 @@ function App() {
           setUser(user);
           setUserProjectsArray(user.projects);
           setUserClientProjectArray(user.client_projects);
-
-
-          user.client_projects.map((index)=>{
-            console.log(index.project_id)
-          })
-
         });
       }
     })
@@ -42,11 +36,13 @@ function App() {
       r.json().then((user) => {setUser(user); 
         setUserProjectsArray(user.projects);
         setUserClientProjectArray(user.client_projects);
+
       })
     }
     else
     r.json().then((data) => setError(data.error))
     })
+    
 }
 
 // --------LOG OUT function ---------
@@ -92,12 +88,11 @@ function App() {
     <div className='App'>
       <header className="App-header">
           <h1>The Feedback App</h1>
-          <button onClick={handleLogout}>Logout</button>
-          
       </header>
       <h2>{`hello "${user.name}"`}</h2>
       <Dashboard 
       user={user} 
+      handleLogout={handleLogout}
       userProjectsArray={userProjectsArray} 
       userClientProjectArray={userClientProjectArray}
       deleteProject={deleteProject} 

@@ -10,12 +10,12 @@ import Settings from './Settings';
 import ClientProject from './ClientProject';
 
 
-function Dashboard ({user, userProjectsArray, userClientProjectArray, deleteProject, addProject}){
+function Dashboard ({user, handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject}){
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Nav user={user} />,
+      element: <Nav handleLogout={handleLogout}/>,
       children: [
         {
           path: '/Projects',
