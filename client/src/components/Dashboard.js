@@ -7,7 +7,7 @@ import ProjectContainer from './ProjectContainer';
 import Project from './Project';
 import Nav from './Nav';
 import Settings from './Settings';
-import ClientProject from './ClientProject';
+import ClientProjectContainer from './Client_Routes/ClientProjectContainer';
 
 
 function Dashboard ({user, handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject}){
@@ -34,7 +34,7 @@ function Dashboard ({user, handleLogout, userProjectsArray, userClientProjectArr
         },
         {
           path: 'ClientProject/:id',
-          element: <ClientProject />
+          element: <ClientProjectContainer />
         }
       ]
     },
