@@ -3,11 +3,6 @@ import React from "react";
 
 function ClientAssetComments ({comments}){
 
-
-
-
-
-
     return (
         <div>
             

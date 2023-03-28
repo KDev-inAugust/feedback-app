@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
+import { UserContext } from "../App";
 import ClientAssetComments from "./ClientAssetComments";
 
 function ClientAsset ({url, index, comments, active_storage_attachment_id}){
@@ -8,6 +9,7 @@ function ClientAsset ({url, index, comments, active_storage_attachment_id}){
     const [commentText, setCommentText] = useState("");
     const [assetComments, setAssetComments] = useState(comments)
 
+    const postingUser=useContext(UserContext)
 // ------------- add comment to project asset -----------------
     function handleAddComment (commentTimeStamp, commentText, attachment_index){
         console.log("comment sent")
@@ -18,7 +20,7 @@ function ClientAsset ({url, index, comments, active_storage_attachment_id}){
         },
         body: JSON.stringify({
             active_storage_attachment_id: active_storage_attachment_id ,
-            user_id: 1,
+            user_id: postingUser.id,
             track_time: commentTimeStamp,
             body: commentText
         })

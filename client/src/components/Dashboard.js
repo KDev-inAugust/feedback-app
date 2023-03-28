@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
    createBrowserRouter,
     RouterProvider,
@@ -8,9 +8,11 @@ import Project from './Project';
 import Nav from './Nav';
 import Settings from './Settings';
 import ClientProjectContainer from './Client_Routes/ClientProjectContainer';
+import { UserContext } from './App';
 
-
-function Dashboard ({user, handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject}){
+function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject}){
+  const userContext=useContext(UserContext);
+  console.log("UserContext", userContext)
 
   const router = createBrowserRouter([
     {
@@ -20,13 +22,13 @@ function Dashboard ({user, handleLogout, userProjectsArray, userClientProjectArr
         {
           path: '/Projects',
           element: <ProjectContainer 
-          user={user} 
+          user={userContext} 
           userProjectsArray={userProjectsArray}
           userClientProjectArray={userClientProjectArray}/>
         },
         {
           path: '/Settings',
-          element: <Settings user={user} userProjectsArray={userProjectsArray} deleteProject={deleteProject} addProject={addProject}/>
+          element: <Settings user={userContext} userProjectsArray={userProjectsArray} deleteProject={deleteProject} addProject={addProject}/>
         },
         {
           path: '/Project/:id',

@@ -1,9 +1,10 @@
 import '../App.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
+import { createContext } from 'react';
 import Dashboard from './Dashboard';
 import LogIn from './Login';
-
+export const UserContext = createContext(null);
 
 
 function App() {
@@ -11,7 +12,9 @@ function App() {
   const [error, setError] =  useState([]);
   const [userProjectsArray, setUserProjectsArray] = useState([])
   const [userClientProjectArray, setUserClientProjectArray] = useState([])
-  // this "/me" checks the user against an active sessions user_id so if there is no active sesssion it will throw an error
+  
+  
+  
 
 // ----------this "ME" effect checks the "ME" anytime this page reloads------
   useEffect(()=>{
@@ -40,19 +43,18 @@ function App() {
       })
     }
     else
-    r.json().then((data) => setError(data.error))
+    r.json().then((data) => {setError(data.error); console.log(error)})
     })
-    
 }
 
-// --------LOG OUT function ---------
+// --------------- LOG OUT function ---------
   function handleLogout(){
     fetch("/logout", {
       method: "DELETE",
     }).then(()=> {setUser(null)})
   }
 
-// ------------ADD PROJECT function -----------
+// ------------ ADD PROJECT function -----------
   function addProject(name){
     console.log(`add project triggered with name ${name} and user id ${user.id}`);
 
@@ -85,18 +87,20 @@ function App() {
 // ----------the RETURN -----------
    if(user!==null)  { 
   return(
+   
     <div className='App'>
       <header className="App-header">
           <h1>The Feedback App</h1>
       </header>
       <h2>{`hello "${user.name}"`}</h2>
-      <Dashboard 
-      user={user} 
-      handleLogout={handleLogout}
-      userProjectsArray={userProjectsArray} 
-      userClientProjectArray={userClientProjectArray}
-      deleteProject={deleteProject} 
-      addProject={addProject}/>
+      <UserContext.Provider value={user}>
+          <Dashboard 
+          handleLogout={handleLogout}
+          userProjectsArray={userProjectsArray} 
+          userClientProjectArray={userClientProjectArray}
+          deleteProject={deleteProject} 
+          addProject={addProject}/>
+      </UserContext.Provider>
     </div>
   )
      }
