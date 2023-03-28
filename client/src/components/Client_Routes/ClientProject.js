@@ -1,17 +1,9 @@
 import React from "react";
-import { useState} from "react";
 
 import ClientAsset from "./ClientAsset";
 
 function ClientProject ({clientProject, clientProjectUrls}) {
     
-   
-    const [comments, setComments] = useState([])
-
-  
-
-
-
     return (
         <div id="asset">
             <h1>{clientProject.name}</h1>
@@ -20,7 +12,9 @@ function ClientProject ({clientProject, clientProjectUrls}) {
                 
                 return( 
                   <ClientAsset 
+                  key={index}
                   url={url} 
+                  name={clientProject.asset_names[index]}
                   index={index} 
                   comments={clientProject.active_storage_attachments[index].comments}
                   active_storage_attachment_id={clientProject.active_storage_attachments[index].id}

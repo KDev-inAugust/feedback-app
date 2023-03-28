@@ -22,7 +22,7 @@ function ClientProjectContainer (){
 
 // -------the return----------------
       return (
-        <div>
+        <div >
             <ClientProject 
             clientProject={clientProject} 
             clientProjectUrls={clientProjectUrls}/>

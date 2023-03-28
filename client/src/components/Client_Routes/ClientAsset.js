@@ -3,15 +3,16 @@ import { useState } from "react";
 import { UserContext } from "../App";
 import ClientAssetComments from "./ClientAssetComments";
 
-function ClientAsset ({url, index, comments, active_storage_attachment_id}){
+function ClientAsset ({url, clientId, index, name, comments, active_storage_attachment_id}){
     const [showCommentForm, setShowCommentForm] = useState(false);
     const [commentTimeStamp, setCommentTimeStamp] = useState(0);
     const [commentText, setCommentText] = useState("");
     const [assetComments, setAssetComments] = useState(comments)
 
     const postingUser=useContext(UserContext)
+
 // ------------- add comment to project asset -----------------
-    function handleAddComment (commentTimeStamp, commentText, attachment_index){
+    function handleAddComment (commentTimeStamp, commentText){
         console.log("comment sent")
         fetch("/comments",{
           method: "POST",
@@ -26,9 +27,18 @@ function ClientAsset ({url, index, comments, active_storage_attachment_id}){
         })
         }).then(r=>r.json()).then((data)=>{setAssetComments(data)});
       }
+
+// ------------ delete comment on asset --------
+  function handleDeleteClientComment (id){
+    console.log(id)
+        fetch(`/comments/${id}`,{
+            method: "DELETE"
+        }).then(r=>r.json()).then((comment)=>{
+            console.log(comment);
+        setAssetComments(assetComments.filter((index)=>index.id!==comment.id))
+        })
+  }      
     
-
-
 // ---------- on SHOW comment form ------------
 function handleShowCommentForm (e){
     let audio = document.getElementById(`audio-element${e.target.value}`);
@@ -45,6 +55,7 @@ function handleShowCommentForm (e){
 
     return (
         <div key={index}>
+            <h2>{name}</h2>
         <audio controls src={url} id={`audio-element${index}`} key={index}/>
         <button onClick={handleShowCommentForm} value={index}>add comment</button>
 
@@ -58,7 +69,7 @@ function handleShowCommentForm (e){
             : 
             <p></p>}
 
-        <ClientAssetComments comments={assetComments} />
+        <ClientAssetComments clientId={clientId} comments={assetComments} handleDeleteClientComment={handleDeleteClientComment}/>
        
         </div>
     )
