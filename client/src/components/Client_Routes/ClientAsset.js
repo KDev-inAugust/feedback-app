@@ -1,15 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { UserContext } from "../App";
 import ClientAssetComments from "./ClientAssetComments";
 
 function ClientAsset ({url, clientId, index, name, comments, active_storage_attachment_id}){
+    const [assetDuration, setAssetDuration] = useState(0);
     const [showCommentForm, setShowCommentForm] = useState(false);
     const [commentTimeStamp, setCommentTimeStamp] = useState(0);
     const [commentText, setCommentText] = useState("");
-    const [assetComments, setAssetComments] = useState(comments)
+    const [assetComments, setAssetComments] = useState(comments);
 
     const postingUser=useContext(UserContext)
+
+    useEffect(()=>{
+        let audio = document.getElementById(`audio-element${index}`);
+       setAssetDuration(audio.duration)
+    },)
 
 // ------------- add comment to project asset -----------------
     function handleAddComment (commentTimeStamp, commentText){
@@ -27,8 +33,32 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
         })
         }).then(r=>r.json()).then((data)=>{setAssetComments(data)});
       }
+// -------------update comment on asset ---------
 
-// ------------ delete comment on asset --------
+function handleUpdateClientComment(commentBody, commentTime, id){
+    console.log(`update client comment ${id}`);
+
+    fetch(`/comments/${id}`,{
+        method: "PATCH",
+        headers: {
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify({
+            track_time: commentTime,
+            body: commentBody
+        })
+    }).then(r=>r.json()).then((updatedComment)=>{setAssetComments(
+        assetComments.map((index)=>{
+            if(index.id===updatedComment.id){
+                return updatedComment
+            }
+            else return index
+        })
+
+    )})
+}
+
+// ------------ delete comment on asset -------------
   function handleDeleteClientComment (id){
     console.log(id)
         fetch(`/comments/${id}`,{
@@ -42,6 +72,7 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
 // ---------- on SHOW comment form ------------
 function handleShowCommentForm (e){
     let audio = document.getElementById(`audio-element${e.target.value}`);
+    console.log(audio)
     setCommentTimeStamp(parseInt(audio.currentTime))
     console.log(`${audio.currentTime} of blob_id ${e.target.value}`);
     setShowCommentForm(!showCommentForm);
@@ -65,11 +96,17 @@ function handleShowCommentForm (e){
             <input type="text" onChange={e=>setCommentText(e.target.value)}/>
             <button onClick={handleClick} value={index}>add and close</button>
             </div>
-            
+
             : 
             <p></p>}
 
-        <ClientAssetComments clientId={clientId} comments={assetComments} handleDeleteClientComment={handleDeleteClientComment}/>
+        <ClientAssetComments 
+        clientId={clientId} 
+        comments={assetComments} 
+        assetDuration={assetDuration}
+        handleDeleteClientComment={handleDeleteClientComment}
+        handleUpdateClientComment={handleUpdateClientComment}
+        />
        
         </div>
     )

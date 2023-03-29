@@ -72,9 +72,6 @@ function Project(){
       })
         .then((response) => response.json())
         .then((data) => {
-        //   console.log(data.path, data.name);
-        //  setProjectURLs([...projectURLs, data.path ]);
-        //  setAssetNames([...assetNames, data.name])
         setProjectURLs(data.asset_urls);
           setProject(data);  
           setAssetNames(data.asset_names);

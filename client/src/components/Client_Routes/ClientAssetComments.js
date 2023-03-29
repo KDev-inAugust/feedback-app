@@ -1,37 +1,32 @@
-import React, { useContext } from "react";
-import { UserContext } from "../App";
+import React, { useContext, useState } from "react";
+
+import ClientAssetComment from "./ClientAssetComment";
 
 
 
-function ClientAssetComments ({comments, handleDeleteClientComment}){
-
-    let loggedInUser=useContext(UserContext)
+function ClientAssetComments ({comments, assetDuration, handleUpdateClientComment, handleDeleteClientComment}){
     
-   
+//    console.log(assetDuration)
 
-    // handle delete 
-    function handleDeleteComment(e){
-        handleDeleteClientComment(e.target.value)
-    }
+   
+    
 
     return (
         <div>
             
                 {comments.map((comment, index)=>{
-            
-            let remainder=comment.track_time%60;
-            let parseSecs=remainder.toLocaleString(undefined, {minimumIntegerDigits: 2})
-            let parseMins=parseInt(comment.track_time/60);
-           return (
-            <div id="asset-comments" key={index}>
-                <p className="comment">{comment.body}</p>
-                <p>{`at ${parseMins}:${parseSecs}`}</p>
-                <p>{`by "${comment.user_name}"`}</p>
+                    return(
+                    <ClientAssetComment 
+                    key={index}
+                    comment={comment} 
+                    index={index} 
+                    assetDuration={assetDuration}
+                    handleUpdateClientComment={handleUpdateClientComment}
+                    handleDeleteClientComment={handleDeleteClientComment}
 
-                {comment.user_id===loggedInUser.id? <button onClick={handleDeleteComment} value={comment.id}>delete comment</button> : null}
-                
-           </div>
-           ) 
+                    />
+                    )
+           
         })}
         </div>
         

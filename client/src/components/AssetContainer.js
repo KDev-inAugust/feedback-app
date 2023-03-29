@@ -1,5 +1,4 @@
 import '../App.css';
-import React, {useEffect, useState} from 'react';
 import Asset from './Asset';
 
 function AssetContainer ({
