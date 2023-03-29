@@ -32,6 +32,7 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
             body: commentText
         })
         }).then(r=>r.json()).then((data)=>{setAssetComments(data)});
+        setShowCommentForm(false)
       }
 // -------------update comment on asset ---------
 
