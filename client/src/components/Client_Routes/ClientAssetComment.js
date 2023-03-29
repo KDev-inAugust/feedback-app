@@ -5,7 +5,7 @@ import { UserContext } from "../App";
 function ClientAssetComment({comment, index, assetDuration, handleUpdateClientComment, handleDeleteClientComment }){
     const [showEditCommentFields, setShowEditCommentFields] = useState(false);
     const [commentBody, setCommentBody] = useState(null);
-    const [editMode, setEditMode] = useState(false)
+    // const [editMode, setEditMode] = useState(false)
     const [commentTime, setCommentTime] = useState(null);
     
     let loggedInUser=useContext(UserContext)
@@ -13,19 +13,20 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
     // ---------- SHOW EDIT FORM --------------
 
     function handleShowEditForm(){
-        setEditMode(false);
+        setCommentTime(comment.track_time)
+        setCommentBody(comment.body)
         setShowEditCommentFields(!showEditCommentFields);
     }
 
     // ----------EDIT COMMENT-----------------   
 
     function handleUpdateBody(e){
-        setEditMode(true);
+       
         setCommentBody(e.target.value);
     }
 
     function handleUpdateTimeStamp(e){
-        setEditMode(true);
+       
         setCommentTime(e.target.value);
     }
 
@@ -61,10 +62,10 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
             {showEditCommentFields? 
                 <div>
                     <p>edit comment</p>
-                    <input type="text" onChange={handleUpdateBody} value={editMode? commentBody : comment.body}/>
+                    <input type="text" onChange={handleUpdateBody} value={commentBody}/>
                     <p>{`edit comment time stamp, choose a number between 0 and ${assetDuration}`}</p>
                     <input type="number" min="0" max={`${assetDuration}`} 
-                        onChange={handleUpdateTimeStamp} value={editMode? commentTime : parseSecs} />
+                        onChange={handleUpdateTimeStamp} value={parseInt(commentTime%60)} />
                 </div>
                 :null}
             { showEditCommentFields? 
