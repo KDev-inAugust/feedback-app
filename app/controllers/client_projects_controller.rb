@@ -14,4 +14,19 @@ class ClientProjectsController < ApplicationController
         end
     end
 
+    def create
+        
+        if ClientProject.where(user_id: params[:user_id], project_id: params[:project_id]).exists?
+            render json: {error: "that client record already exists"}
+        elsif User.where(id: params[:user_id]).exists? and User.where(id: params[:user_id])!=User.where(id: session[:user_id])
+            client_project=ClientProject.create(client_project_params)
+                render json: client_project
+        else render json: { error: "we can't create that record, make sure the user exists and that you are not addin gyourself as a client" }
+        end
+    end
+
+    private 
+    def client_project_params
+        params.permit(:project_id, :user_id)
+    end
 end

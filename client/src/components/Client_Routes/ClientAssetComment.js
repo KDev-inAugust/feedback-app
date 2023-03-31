@@ -26,14 +26,13 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
     }
 
     function handleUpdateTimeStamp(e){
-       
+        
         setCommentTime(e.target.value);
     }
 
 
     function handleEditComment(e){
         const id=e.target.value;
-        console.log(e.target.value)
         handleUpdateClientComment(commentBody, commentTime, id);
         setShowEditCommentFields(false);
     }
@@ -41,6 +40,7 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
     // --------------handle delete --------------------
 
     function handleDeleteComment(e){
+        alert("are you sure? deleting a comment cannot be undone.")
         handleDeleteClientComment(e.target.value);
         
     }
@@ -73,8 +73,14 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
                 <button onClick={handleEditComment} value={comment.id}>save and close</button> 
                 <button onClick={handleShowEditForm}>cancel</button>
                 </div>
-            : <button onClick={handleShowEditForm} value={comment.id}>edit comment</button> }
-            <button onClick={handleDeleteComment} value={comment.id}>delete comment</button> 
+            : 
+            <div>
+                <button onClick={handleShowEditForm} value={comment.id}>edit comment</button> 
+                <button onClick={handleDeleteComment} value={comment.id}>delete comment</button> 
+            </div>
+          
+            }
+            
         </div>
         : null }
         

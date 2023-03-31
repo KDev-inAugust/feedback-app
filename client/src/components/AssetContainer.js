@@ -12,7 +12,7 @@ function AssetContainer ({
     fileNameForDisplay,
     }) {
 
-
+console.log("client projects", project.client_projects[0].user.name)
 
  // ----------- upload and display the uploaded asset ---------
   
@@ -27,6 +27,10 @@ function AssetContainer ({
       <button onClick={handleAssetSubmit}>add file to project</button>
       
       <h1>{project ? project.name : "Loading Project"}</h1>
+      <h2>{project ? 
+      
+        project.client_projects.map(index=><p>{index.user.name}</p>)
+      : "Loading Client List" }</h2>
         
           {project ? 
           (projectURLs.map((url, index)=>{

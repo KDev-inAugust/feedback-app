@@ -6,13 +6,8 @@ import ClientAssetComment from "./ClientAssetComment";
 
 function ClientAssetComments ({comments, assetDuration, handleUpdateClientComment, handleDeleteClientComment}){
     
-//    console.log(assetDuration)
-
-   
-    
-
     return (
-        <div>
+        <div id="asset-comments">
             
                 {comments.map((comment, index)=>{
                     return(

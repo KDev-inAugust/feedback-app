@@ -6,13 +6,13 @@ function AssetComments ({assetComments, handleDeleteComment}){
         handleDeleteComment(e.target.value);
     }
     return (
-        <div id="asset-comments">
+        <div >
             {assetComments.map((comment, index)=>{
                 let remainder=comment.track_time%60;
                 let parseSecs=remainder.toLocaleString(undefined, {minimumIntegerDigits: 2})
                 let parseMins=parseInt(comment.track_time/60);
                     return(
-                        <div key={index}>
+                        <div id="asset-comments" key={index}>
                             <p className="comment">{comment.body}</p>
                             <p>at {`${parseMins}:${parseSecs}`}</p>
                             <p>by "{comment.user_name}"</p>
