@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 
-function Settings ({user, userProjectsArray, deleteProject, addProject}){
+function Settings ({user, userProjectsArray, deleteProject, addProject, AddClientProject, removeClientProject}){
 
     const [newProjectName, setNewProjectName] = useState("");
     const [selectedClientProject, setSelectedClientProject] = useState("");
-    const [selectedClientID, setSelecteClientID] = useState(0)
+    const [selectedClientID, setSelecteClientID] = useState(0);
 
-    // ----------- add a project to the client account ------------
+
+    // ----------- add a project to the User account ------------
     function handleAddProject(e){
         e.preventDefault();
         addProject(newProjectName);
@@ -35,37 +36,35 @@ function Settings ({user, userProjectsArray, deleteProject, addProject}){
         AddClientProject(selectedClientProject, selectedClientID)
     }
 
-    function AddClientProject(projectID, userID){
-        console.log("add client project triggered");
+    // ------------- remove client from project ----------------
 
-        fetch('/client_projects',{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                project_id: projectID ,
-                user_id: parseInt(userID)
-            })
-        }).then((r)=>{
-            if(r.ok) {
-                r.json().then(clientProject=>console.log(clientProject))
-            }
-            else
-            r.json().then((data)=>console.log(data))
-            
-        })}
+    function handleRemoveClient(e){
+        
+        removeClientProject(e.target.value)
+    }
 
     return(
         <div>
             <h1>Settings</h1>
             <h2>Your User ID is: {user.id}</h2>
             <h2>Project List</h2>
-            {user? userProjectsArray.map(index=>{
+            {user? userProjectsArray.map((project)=>{
             return(
-                <div key={index.id}>
-                    <Link to={`/Project/${index.id}`} className="project-link">{index.name}</Link>
-                    <button onClick={deleteProject} value={index.id}>delete project</button>
+                <div className="settings-item" key={project.id}>
+                    <Link to={`/Project/${project.id}`} className="project-link">{project.name}</Link>
+
+                    {project.client_projects.length>0 ? 
+                    project.client_projects.map( cp=>
+                        <div key={cp.id}>
+                            <p>{cp.user.name}</p>
+                            <button value={cp.id} onClick={handleRemoveClient} className="small-button">remove client</button>
+                        </div>
+                        )
+                    
+                    : console.log("false")}
+
+                    <br/>
+                    <button onClick={deleteProject} value={project.id}>delete project</button>
                 </div>
             )
         }) : "loading projects"}
@@ -81,7 +80,7 @@ function Settings ({user, userProjectsArray, deleteProject, addProject}){
                 <select id="project-select" onChange={handleSelectProject}> 
                     <option>choose a project</option>
                     {userProjectsArray.map((project)=>
-                    <option value={project.id}>{project.name}</option>
+                    <option key={project.id} value={project.id}>{project.name}</option>
                     )}
                 </select>
                 <h3>input User by ID</h3>

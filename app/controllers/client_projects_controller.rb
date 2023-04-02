@@ -17,12 +17,19 @@ class ClientProjectsController < ApplicationController
     def create
         
         if ClientProject.where(user_id: params[:user_id], project_id: params[:project_id]).exists?
-            render json: {error: "that client record already exists"}
+            render json: {error: "that client record already exists"}, status: :unprocessable_entity
         elsif User.where(id: params[:user_id]).exists? and User.where(id: params[:user_id])!=User.where(id: session[:user_id])
             client_project=ClientProject.create(client_project_params)
-                render json: client_project
-        else render json: { error: "we can't create that record, make sure the user exists and that you are not addin gyourself as a client" }
+                render json: client_project.project
+        else render json: { error: "we can't create that record, make sure the user exists and that you are not addin gyourself as a client" }, status: :unprocessable_entity
         end
+    end
+
+    def destroy
+        cp=ClientProject.find_by(id: params[:id])
+        cp_project=cp.project
+        cp.destroy
+        render json: cp_project
     end
 
     private 

@@ -10,9 +10,10 @@ import Settings from './Settings';
 import ClientProjectContainer from './Client_Routes/ClientProjectContainer';
 import { UserContext } from './App';
 
-function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject}){
+function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject, AddClientProject, removeClientProject}){
   const userContext=useContext(UserContext);
-  console.log("UserContext", userContext)
+  
+
 
   const router = createBrowserRouter([
     {
@@ -28,7 +29,14 @@ function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, de
         },
         {
           path: '/Settings',
-          element: <Settings user={userContext} userProjectsArray={userProjectsArray} deleteProject={deleteProject} addProject={addProject}/>
+          element: <Settings 
+            user={userContext} 
+            userProjectsArray={userProjectsArray} 
+            deleteProject={deleteProject} 
+            addProject={addProject}
+            AddClientProject={AddClientProject}
+            removeClientProject={removeClientProject}
+            />
         },
         {
           path: '/Project/:id',

@@ -40,8 +40,9 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
     // --------------handle delete --------------------
 
     function handleDeleteComment(e){
-        alert("are you sure? deleting a comment cannot be undone.")
+       if(window.confirm("are you sure? deleting a comment cannot be undone.") === true){
         handleDeleteClientComment(e.target.value);
+       } 
         
     }
 

@@ -12,7 +12,6 @@ function AssetContainer ({
     fileNameForDisplay,
     }) {
 
-console.log("client projects length", project.client_projects.length<1)
 
  // ----------- upload and display the uploaded asset ---------
   
@@ -27,10 +26,16 @@ console.log("client projects length", project.client_projects.length<1)
       <button onClick={handleAssetSubmit}>add file to project</button>
       
       <h1>{project ? project.name : "Loading Project"}</h1>
-      <h2>{project.client_projects.length>0 ? 
       
-        project.client_projects.map(index=><p>{index.user.name}</p>)
-      : null }</h2>
+      <div>{project.client_projects.length>0 ? 
+     
+          <div>  
+            <h2>Client List:</h2>      
+            {project.client_projects.map(index=><p>{index.user.name}</p>)}
+          </div>
+            
+      : null }
+      </div>
         
           {project ? 
           (projectURLs.map((url, index)=>{

@@ -47,6 +47,48 @@ function App() {
     })
 }
 
+// --------------- add Client to Project -----------------------
+function AddClientProject(projectID, userID){
+
+  fetch('/client_projects',{
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          project_id: projectID ,
+          user_id: parseInt(userID)
+      })
+  }).then((r)=>{
+      if(r.ok) {
+          r.json().then(
+            (project)=>{setUserProjectsArray(
+              userProjectsArray.map((index)=>{
+                  if (index.id===project.id){
+                    return project
+                  }
+                  else return index
+              }));
+            }
+          )
+      } else r.json().then((data)=>console.log(data));
+  }) }
+
+// ----------------- Remove client from project ------------
+
+  function removeClientProject(id){
+    console.log(id);
+    fetch(`/client_projects/${id}`, {
+      method: "DELETE",
+    }).then(r=>r.json()).then((project)=>{
+      setUserProjectsArray(userProjectsArray.map((index)=>{
+        if (index.id===project.id)
+        {return project} 
+        else return index
+      }))
+    })
+  }
+
 // --------------- LOG OUT function ---------
   function handleLogout(){
     fetch("/logout", {
@@ -73,15 +115,15 @@ function App() {
 // ---------DELETE PROJECT function --------
   function deleteProject(e){
     console.log(`delete project triggered on ${e.target.value}`);
-
-    fetch (`/projects/${e.target.value}`,{
-      method: "DELETE",
-    }).then(r=>r.json()).then((project)=>{
-      let newProjectArray=userProjectsArray.filter((index)=>{return index.id!==project.id})
-      setUserProjectsArray(newProjectArray)
-    })
-      
-      
+    if(window.confirm("delete this project and all feedback? this cannot be undone.") === true){
+      fetch (`/projects/${e.target.value}`,{
+        method: "DELETE",
+      }).then(r=>r.json()).then((project)=>{
+        let newProjectArray=userProjectsArray.filter((index)=>{return index.id!==project.id})
+        setUserProjectsArray(newProjectArray)
+      }) 
+    }
+   
   }
 
 // ----------the RETURN -----------
@@ -99,7 +141,10 @@ function App() {
           userProjectsArray={userProjectsArray} 
           userClientProjectArray={userClientProjectArray}
           deleteProject={deleteProject} 
-          addProject={addProject}/>
+          addProject={addProject}
+          AddClientProject={AddClientProject}
+          removeClientProject={removeClientProject}
+          />
       </UserContext.Provider>
     </div>
   )
