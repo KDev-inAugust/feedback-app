@@ -11,7 +11,8 @@ function Project(){
     const [projectURLs, setProjectURLs] = useState([]);
     const [assetNames, setAssetNames] = useState([]);
     const [fileNameForDisplay, setFileNameForDisplay] = useState("");
-    const [onLoadProjectText, setOnLoadProjectText] = useState("Loading")
+    const [onLoadProjectText, setOnLoadProjectText] = useState("Loading");
+    const [assetErrors, setAssetErrors] =useState(null)
     const { id } = useParams()
 
   // ------- get the Project data for this project -------
@@ -69,16 +70,26 @@ function Project(){
       fetch("/add_asset/", {
         method: "POST",
         body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-        setProjectURLs(data.asset_urls);
-          setProject(data);  
-          setAssetNames(data.asset_names);
-          setFileNameForDisplay("");
-          loader.className="hidden";
         })
+        .then(
+          (response) => {
+            if (response.ok){
+          response.json().then((data) => {
+            setProjectURLs(data.asset_urls);
+              setProject(data);  
+              setAssetNames(data.asset_names);
+              setFileNameForDisplay("");
+              setSelectedAsset([]);
+              setAssetName("");
+              loader.className="hidden";
+              setAssetErrors(null);
+              }
+              )
+            } else response.json().then((data)=>{setAssetErrors(data.error); loader.className="hidden";})
+          }
+        )
     }
+
     // ------------ Remove Asset From Project -----------
     function handleDeleteAsset (e) {
       console.log(e.target.value);
@@ -103,7 +114,6 @@ function Project(){
       )
     }
     
-
     return (
       <div id="project">
         <div id="loader"></div>
@@ -117,6 +127,8 @@ function Project(){
         handleDeleteAsset={handleDeleteAsset}
         assetNames={assetNames}
         fileNameForDisplay={fileNameForDisplay}
+        assetErrors={assetErrors}
+        assetName={assetName}
         />
         
         : <p className='error-message'>{onLoadProjectText}</p>}

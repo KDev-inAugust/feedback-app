@@ -21,7 +21,7 @@ class ClientProjectsController < ApplicationController
         elsif User.where(id: params[:user_id]).exists? and User.where(id: params[:user_id])!=User.where(id: session[:user_id])
             client_project=ClientProject.create(client_project_params)
                 render json: client_project.project
-        else render json: { error: "we can't create that record, make sure the user exists and that you are not addin gyourself as a client" }, status: :unprocessable_entity
+        else render json: { error: "we can't create that record, make sure the user exists and that you are not adding yourself as a client" }, status: :unprocessable_entity
         end
     end
 

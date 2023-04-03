@@ -32,13 +32,16 @@ class ProjectsController < ApplicationController
     end
 
     def add_asset
+        if params[:asset]=="undefined" || params[:name]==""
+            render json: { error: "make sure you have both a file and a file name"}, status: :unprocessable_entity
+        else 
         project = Project.find_by(id: params[:id])
         project.assets.attach(params[:asset])
         project.assets.last.update(filename: params[:name])
-        
         ActiveStorageAttachment.last.update(project_id: params[:id])
-        
         render json: project
+        
+        end
     end
 
     def asset_purge

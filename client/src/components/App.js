@@ -12,6 +12,7 @@ function App() {
   const [error, setError] =  useState([]);
   const [userProjectsArray, setUserProjectsArray] = useState([])
   const [userClientProjectArray, setUserClientProjectArray] = useState([])
+  const [errors, setErrors] = useState(null)
   
   
   
@@ -68,10 +69,10 @@ function AddClientProject(projectID, userID){
                     return project
                   }
                   else return index
-              }));
+              })); setErrors(null)
             }
           )
-      } else r.json().then((data)=>console.log(data));
+      } else r.json().then((data)=>setErrors(data.error));
   }) }
 
 // ----------------- Remove client from project ------------
@@ -109,7 +110,16 @@ function AddClientProject(projectID, userID){
         user_id: user.id,
         name: name
     })
-    }).then(r=>r.json()).then((project)=>setUserProjectsArray([...userProjectsArray, project]))
+    }).then((r)=>{
+      if (r.ok){
+        r.json().then((project)=>{setUserProjectsArray([...userProjectsArray, project]);
+        setErrors(null)
+        })
+      }
+      else r.json().then(data=>setErrors(data.errors))
+      }
+      
+      )
 
   }
 // ---------DELETE PROJECT function --------
@@ -144,6 +154,7 @@ function AddClientProject(projectID, userID){
           addProject={addProject}
           AddClientProject={AddClientProject}
           removeClientProject={removeClientProject}
+          errors={errors}
           />
       </UserContext.Provider>
     </div>

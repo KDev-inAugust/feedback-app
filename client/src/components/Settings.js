@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 
-function Settings ({user, userProjectsArray, deleteProject, addProject, AddClientProject, removeClientProject}){
+function Settings ({user, userProjectsArray, deleteProject, addProject, AddClientProject, removeClientProject, errors}){
 
     const [newProjectName, setNewProjectName] = useState("");
     const [selectedClientProject, setSelectedClientProject] = useState("");
@@ -33,7 +33,8 @@ function Settings ({user, userProjectsArray, deleteProject, addProject, AddClien
     }
 
     function handleAddClientProject(){
-        AddClientProject(selectedClientProject, selectedClientID)
+        AddClientProject(selectedClientProject, selectedClientID);
+        setSelecteClientID(0)
     }
 
     // ------------- remove client from project ----------------
@@ -46,6 +47,7 @@ function Settings ({user, userProjectsArray, deleteProject, addProject, AddClien
     return(
         <div>
             <h1>Settings</h1>
+            {errors ? <p className="error-message">{errors}</p>:null }
             <h2>Your User ID is: {user.id}</h2>
             <h2>Project List</h2>
             {user? userProjectsArray.map((project)=>{
@@ -84,7 +86,7 @@ function Settings ({user, userProjectsArray, deleteProject, addProject, AddClien
                     )}
                 </select>
                 <h3>input User by ID</h3>
-                <input type="integer" onChange={handleSelectUser}/>
+                <input type="integer" onChange={handleSelectUser} value={selectedClientID}/>
             </form>
             <button onClick={handleAddClientProject}>add client</button>
         </div>

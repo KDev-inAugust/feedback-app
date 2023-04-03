@@ -10,7 +10,7 @@ import Settings from './Settings';
 import ClientProjectContainer from './Client_Routes/ClientProjectContainer';
 import { UserContext } from './App';
 
-function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject, AddClientProject, removeClientProject}){
+function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject, AddClientProject, removeClientProject, errors}){
   const userContext=useContext(UserContext);
   
 
@@ -36,6 +36,7 @@ function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, de
             addProject={addProject}
             AddClientProject={AddClientProject}
             removeClientProject={removeClientProject}
+            errors={errors}
             />
         },
         {
