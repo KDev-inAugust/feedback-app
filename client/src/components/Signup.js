@@ -7,7 +7,7 @@ function SignUp({onLogin}){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
-    const [signupError, setSignupError] = useState([])
+    const [signupError, setSignupError] = useState(null)
 
 function handleSubmit(e){
     e.preventDefault();
@@ -17,7 +17,7 @@ function handleSubmit(e){
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-           user_name: username,
+           name: username,
            password,
            password_confirmation: passwordConfirmation
         }),
@@ -36,7 +36,7 @@ function handleSubmit(e){
 return(
     <div>
     <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username </label>
+        <h3 htmlFor="username">Username </h3>
         <input
         type="text"
         id="username"
@@ -44,7 +44,7 @@ return(
         onChange={(e)=> setUsername(e.target.value)}
         />
         <br></br>
-        <label htmlFor="password">Password </label>
+        <h3 htmlFor="password">Password </h3>
         <input
         type="password"
         id="password"
@@ -52,7 +52,7 @@ return(
         onChange={(e)=> setPassword(e.target.value)}
         />
         <br></br>
-        <label htmlFor="password_confirmation">Confirm Password </label>
+        <h3 htmlFor="password_confirmation">Confirm Password </h3>
         <input
         type="password"
         id="password_confirmation"
@@ -61,7 +61,7 @@ return(
         />
         <button type="submit">submit</button>
     </form>
-    <p>{signupError}</p>
+    { signupError? <p className="error-message">{signupError}</p> : null }
     </div>
     );
 }

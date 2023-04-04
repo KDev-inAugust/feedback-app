@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-    before_action :authorize, only: [:create, :destroy, :show]
+    before_action :authorize
     def index
         projects=Project.all
         render json: projects, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
@@ -59,9 +59,6 @@ class ProjectsController < ApplicationController
         params.permit(:name, :user_id)
     end
 
-    def authorize
-        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
-    end
-
+   
 end
 

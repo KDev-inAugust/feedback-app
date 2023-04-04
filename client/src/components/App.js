@@ -4,12 +4,13 @@ import { useEffect, useState} from 'react';
 import { createContext } from 'react';
 import Dashboard from './Dashboard';
 import LogIn from './Login';
+import SignUp from './Signup';
 export const UserContext = createContext(null);
 
 
 function App() {
   const [user, setUser] = useState(null);
-  const [error, setError] =  useState([]);
+  const [error, setError] =  useState(null);
   const [userProjectsArray, setUserProjectsArray] = useState([])
   const [userClientProjectArray, setUserClientProjectArray] = useState([])
   const [errors, setErrors] = useState(null)
@@ -94,7 +95,7 @@ function AddClientProject(projectID, userID){
   function handleLogout(){
     fetch("/logout", {
       method: "DELETE",
-    }).then(()=> {setUser(null)})
+    }).then(()=> {setUser(null); setError(null); setErrors(null)})
   }
 
 // ------------ ADD PROJECT function -----------
@@ -164,10 +165,15 @@ function AddClientProject(projectID, userID){
       <div className='App'>
         <header className="App-header">
           <h1>The Feedback App Log In</h1>
-      </header>
-        <LogIn onLogin={handleLogin} />
+        </header>
+          <h2>Log In</h2>
+          <LogIn onLogin={handleLogin} />
+         { error? <p className="error-message">{error}</p> : null }
+          <div id="sign-up"> 
+          <h2>Sign Up</h2>
+          <SignUp onLogin={handleLogin}/>
+          </div>
       </div>
-      
      )
 }
 

@@ -1,5 +1,5 @@
 class ClientProjectsController < ApplicationController
-
+    before_action :authorize
     def index
         cp=ClientProject.all
         render json: cp
@@ -36,4 +36,6 @@ class ClientProjectsController < ApplicationController
     def client_project_params
         params.permit(:project_id, :user_id)
     end
+
+
 end

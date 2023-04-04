@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function LogIn({onLogin}){
 
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("")
+    const [password, setPassword] = useState("");
 
     function handleSubmit(e){
         e.preventDefault();
@@ -31,7 +31,6 @@ function LogIn({onLogin}){
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             />
-
             <button type="submit">submit</button>
         </form>
     )

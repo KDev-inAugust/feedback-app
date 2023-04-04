@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+    before_action :authorize
 
     def index
         comments=Comment.all
@@ -33,4 +34,6 @@ class CommentsController < ApplicationController
     def comment_params
         params.permit(:active_storage_attachment_id, :user_id, :track_time, :body)
     end
+
+
 end

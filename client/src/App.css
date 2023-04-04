@@ -25,12 +25,15 @@
 
 
 .error-message {
-  font-size: larger;
-  color: #2d9426;
-  border-style: ridge;
-  padding: 1em;
-  border-radius: 1em;
-  background-color: #caca24;
+  padding: 20px;
+  background-color: #ff9800;
+  color: white;
+  margin: 10%;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .project-link, .project-link:visited{
@@ -119,6 +122,14 @@
   border-radius: 7px;
   margin:1em;
   padding: .5em;
+}
+
+#sign-up {
+  border-style: groove;
+  border-width: 5px;
+  border-radius: 15px;
+  border-color: #216c9e;
+  margin: 10%;
 }
 
 button {
