@@ -1,14 +1,17 @@
 class CommentsController < ApplicationController
     before_action :authorize
 
-    def index
-        comments=Comment.all
-        render json: comments
-    end
+    # def index
+    #     comments=Comment.all
+    #     render json: comments
+    # end
 
     def show
         comment=Comment.find_by(id: params[:id])
+        if comment.user_id==session[:user_id]
         render json: comment
+        else render json: { error: "you are not a user or client for this comment"}
+        end
     end
 
     def create
