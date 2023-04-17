@@ -58,9 +58,7 @@ function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, de
             <div> 
             <RouterProvider router={router} />
             </div>
-            
-
-    </div>
+        </div>
     )
 }
 
