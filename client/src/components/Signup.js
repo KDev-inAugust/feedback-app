@@ -43,7 +43,6 @@ return(
         value={username}
         onChange={(e)=> setUsername(e.target.value)}
         />
-        <br></br>
         <h3 htmlFor="password">Password </h3>
         <input
         type="password"
@@ -51,7 +50,6 @@ return(
         value={password}
         onChange={(e)=> setPassword(e.target.value)}
         />
-        <br></br>
         <h3 htmlFor="password_confirmation">Confirm Password </h3>
         <input
         type="password"
