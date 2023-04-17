@@ -6,7 +6,7 @@ export default function Nav({handleLogout}){
     return (
         <div>
 
-        <button><NavLink to='/' onClick={handleLogout}>Logout</NavLink></button>
+        <button id="logout-button"><NavLink to='/' onClick={handleLogout}>Logout</NavLink></button>
         <div id="nav-container">
             
      

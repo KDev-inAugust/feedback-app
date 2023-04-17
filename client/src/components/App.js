@@ -142,10 +142,11 @@ function AddClientProject(projectID, userID){
   return(
    
     <div className='App'>
-      <header className="App-header">
+      <header id="App-header">
           <h1>The Feedback App</h1>
+          <h2>{`hello "${user.name}"`}</h2>
       </header>
-      <h2>{`hello "${user.name}"`}</h2>
+      
       <UserContext.Provider value={user}>
           <Dashboard 
           handleLogout={handleLogout}
@@ -163,8 +164,8 @@ function AddClientProject(projectID, userID){
      }
      else return (
       <div className='App'>
-        <header className="App-header">
-          <h1>The Feedback App</h1>
+        <header id="login-header">
+          <h1>The Feedback App Log In</h1>
         </header>
 
         <div id="log-in">

@@ -2,12 +2,12 @@ body{
   background-color: #272831 ;
 }
 
+
 .App {
+  margin-top: 0;
   text-align: center;
-  /* background-color: #2f363b; */
-  /* background-image: linear-gradient(to right, #0C1618, #004643); */
   background: #272831;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 button {
@@ -24,7 +24,6 @@ button {
   transition-duration: 0.4s;
   cursor: pointer;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  color: rgb(106, 145, 175);
 }
 
 button:hover {
@@ -34,8 +33,7 @@ h3 {
   margin: 0;
 }
 
-.App-header {
-  /* background-color: #BBBE64; */
+#login-header {
   background-image: linear-gradient(90deg, #bbbe64 80%, #77793d 100%);
   color: #33283c;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
@@ -50,13 +48,32 @@ h3 {
   justify-content: center; /* Center vertically */
   text-align: center; /* Center horizontally */
   font-size: calc(10px + 2vmin);
-  
+}
+
+#log-in{
+  color: #f3f7f3
+}
+
+#sign-up{
+  color: #f2f7f2;
+}
+
+
+#App-header{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0;
+  background-image: linear-gradient(90deg, #bbbe64 80%, #77793d 100%);
+  color: #33283c;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  /* font-size: calc(13px + 2vmin); */
+}
+
+#logout-button{
+  margin-right: 0px;
 }
 
 .dashboard {
-  /* background-color: #BBBE64; */
-  /* margin-left: 5%;
-  margin-right: 5%; */
   border-radius: 10px;
 }
 
@@ -73,11 +90,10 @@ h3 {
 /* nav sidebar and link styling */
 
 .link-container{
-  justify-content: center;
-  align-items: center;
+  position: sticky;
+  top: 0px;
   height: fit-content;
   padding-bottom: 120px;
-  /* background-color: #8c8e3b; */
   background-image: linear-gradient(180deg, #bbbe64 35%, #272831 100%);
   color: #311E10;
 }
@@ -150,6 +166,8 @@ h3 {
   }
 }
 
+/* ----------------------- */
+
 .settings-item{
   border: 5px;
   border-color: rgba(144, 188, 154, 0.696);
@@ -159,13 +177,14 @@ h3 {
   padding: .5em;
 }
 
-
+/* asset card styling */
 #asset {
   border: 5px;
   border-color: rgba(134, 111, 189, 0.237);
   border-style:groove;
   border-radius: 7px;
-  background-color: #052d4892;
+  background-color: #c5c76d;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   margin:1em;
 }
 
@@ -176,6 +195,8 @@ h3 {
   border-radius: 20px;
   margin:1em;
 }
+
+/* ----------------------- */
 
 #project {
   border: 5px;
@@ -271,4 +292,3 @@ input[type="file"]:focus + label::before {
 input[type="file"]:valid + label::before {
   content: attr(data-file-name);
 }
-
