@@ -1,15 +1,19 @@
+body{
+  background-color: #272831 ;
+}
+
 .App {
   text-align: center;
   /* background-color: #2f363b; */
-
-  background-image: linear-gradient(to right, #0C1618, #004643);
-
+  /* background-image: linear-gradient(to right, #0C1618, #004643); */
+  background: #272831;
   min-height: 100vh;
-  color: #ffd8c0;
+  /* color: #F2F7F2; */
 }
 
 button {
-  background-color: #f5c800;
+  background-color: #b39a2f;
+  
   border: none;
   color: #311E10;
   padding: 5px 15px;
@@ -24,20 +28,19 @@ button {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+button:hover {
+  background-color: #cdb135;}
+
 h3 {
   margin: 0;
 }
 
-.dashboard {
-  background-color: #004643;
-  margin-left: 5%;
-  margin-right: 5%;
-  border-radius: 10px;
-}
-
 .App-header {
-  background-color: #006661;
+  /* background-color: #BBBE64; */
+  background-image: linear-gradient(90deg, #bbbe64 80%, #77793d 100%);
+  color: #33283c;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  margin-top: 3vw;
   margin-left: 5vw;
   margin-right: 5vw;
   border-radius: 10px;
@@ -48,9 +51,51 @@ h3 {
   justify-content: center; /* Center vertically */
   text-align: center; /* Center horizontally */
   font-size: calc(10px + 2vmin);
+  
+}
+
+.dashboard {
+  /* background-color: #BBBE64; */
+  /* margin-left: 5%;
+  margin-right: 5%; */
+  border-radius: 10px;
+}
+
+#nav-container{
+  display: grid;
+  grid-template-columns: 200px 75%;
+  border-style: none;
+}
+
+#outlet {
+  background-color: #BBBE64;
+}
+
+/* nav sidebar and link styling */
+
+.link-container{
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  padding-bottom: 120px;
+  /* background-color: #8c8e3b; */
+  background-image: linear-gradient(180deg, #bbbe64 35%, #272831 100%);
   color: #311E10;
 }
 
+.nav-link, .nav-link:visited{
+  text-decoration: none;
+  color: #443850;
+  font-size: x-large;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: top;
+}
+
+/* ------------------- */
 
 .error-message {
   padding: 20px;
@@ -66,33 +111,15 @@ h3 {
 
 .project-link, .project-link:visited{
   margin: 5px;
-  color: #649622;
-}
-
-.nav-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color:#b89600;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  margin-left: 5vw;
-  margin-right: 5vw;
- 
+  color: #1c1d0c;
 }
 
 
-.nav-link, .nav-link:visited{
-  color: #aeafd4;
-  font-size: x-large;
-  padding: 1em;
-  display: flex;
-  align-items: top;
-}
+
 
 .nav-link a.active {
   font-size: xx-large;
-  color: yellowgreen;
+  color: #F2F7F2;
 }
 
 .comment {
@@ -186,12 +213,10 @@ h3 {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-button:hover {
-  background-color: #a38500;
-}
+
 
 input {
-  background-color: #4caf4fb0;
+  background-color: #F2F7F2;
   border: none;
   color: rgba(22, 18, 127, 0.567);
   padding: 5px 10px;
