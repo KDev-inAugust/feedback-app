@@ -164,15 +164,19 @@ function AddClientProject(projectID, userID){
      else return (
       <div className='App'>
         <header className="App-header">
-          <h1>The Feedback App Log In</h1>
+          <h1>The Feedback App</h1>
         </header>
+
+        <div id="log-in">
           <h2>Log In</h2>
           <LogIn onLogin={handleLogin} />
          { error? <p className="error-message">{error}</p> : null }
+        </div>
           <div id="sign-up"> 
-          <h2>Sign Up</h2>
-          <SignUp onLogin={handleLogin}/>
+            <h2>Sign Up</h2>
+            <SignUp onLogin={handleLogin}/>
           </div>
+
       </div>
      )
 }

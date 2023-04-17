@@ -1,26 +1,55 @@
 .App {
   text-align: center;
-  background-color: #282c34;
+  /* background-color: #2f363b; */
+
+  background-image: linear-gradient(to right, #0C1618, #004643);
+
   min-height: 100vh;
-  color: rgb(106, 145, 175);
+  color: #ffd8c0;
+}
+
+button {
+  background-color: #f5c800;
+  border: none;
+  color: #311E10;
+  padding: 5px 15px;
+  margin: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  margin: 0;
 }
 
 .dashboard {
-  background-color: rgba(139, 169, 160, 0.382);
+  background-color: #004643;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 10px;
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #006661;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  margin-left: 5vw;
+  margin-right: 5vw;
+  border-radius: 10px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Center vertically */
+  text-align: center; /* Center horizontally */
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #311E10;
 }
-
-/* .App-link {
-  color: #61dafb;
-} */
 
 
 .error-message {
@@ -44,7 +73,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
- background-color:rgb(53, 84, 74);
+  background-color:#b89600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  margin-left: 5vw;
+  margin-right: 5vw;
  
 }
 
@@ -66,6 +99,10 @@
   color: rgb(173, 87, 72);
   font-weight: 900;
 }
+
+
+
+
 /* loader code */
 .hidden {
   display: none;
@@ -123,29 +160,15 @@
   padding: .5em;
 }
 
-#sign-up {
+#sign-up, #log-in {
   border-style: groove;
+  text-align: center;
   border-width: 5px;
   border-radius: 15px;
   border-color: #216c9e;
-  margin: 10%;
+  margin: 5%;
 }
 
-button {
-  background-color: #3787398a;
-  border: none;
-  color: white;
-  padding: 5px 15px;
-  margin: 5px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 4px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-}
 
 .small-button {
   background-color: #8750373a;
@@ -164,14 +187,14 @@ button {
 }
 
 button:hover {
-  background-color: #3e8e41;
+  background-color: #a38500;
 }
 
 input {
   background-color: #4caf4fb0;
   border: none;
   color: rgba(22, 18, 127, 0.567);
-  padding: 5px 15px;
+  padding: 5px 10px;
   margin: 5px;
   text-align: center;
   text-decoration: none;
