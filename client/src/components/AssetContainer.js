@@ -14,7 +14,6 @@ function AssetContainer ({
     assetErrors
     }) {
 
-
  // ------------------------------- Return ----------------------------
   
  return (

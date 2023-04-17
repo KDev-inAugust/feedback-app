@@ -5,8 +5,12 @@ export default function Nav({handleLogout}){
 
     return (
         <div>
-            <button><NavLink to='/' onClick={handleLogout}>Logout</NavLink></button>
-            <div className="nav-container">
+
+        <button><NavLink to='/' onClick={handleLogout}>Logout</NavLink></button>
+        <div id="nav-container">
+            
+     
+            <div className="link-container">
                 <nav className="nav-link">
                         <NavLink to='/Projects' className="nav-link">Projects</NavLink>
                 </nav>
@@ -14,11 +18,11 @@ export default function Nav({handleLogout}){
                         <NavLink to='/Settings' className="nav-link">Settings</NavLink>
                 </nav>
             </div>
-            <div>
+            <div id="outlet">
               <Outlet />
             </div>
         </div>
-       
+        </div>
     )
 }
 

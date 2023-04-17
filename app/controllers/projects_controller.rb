@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
     before_action :authorize
-    # def index
-    #     projects=Project.all
-    #     render json: projects, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
-    # end
+    def index
+        projects=Project.all
+        # render json: projects, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
+        render json: projects.with_attached_assets
+    end
 
     def show
         project=Project.find_by(id: params[:id])

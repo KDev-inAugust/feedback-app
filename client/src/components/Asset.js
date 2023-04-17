@@ -10,14 +10,14 @@ function Asset ({url, index, project, assetNames, comments, handleDeleteAsset}){
     const [commentText, setCommentText] = useState("");
     const [assetComments, setAssetComments]=useState(comments);
 
-//  --------------ADD COMMENT -------
+
+//  -------------- show add comment form -------
 function handleShowCommentForm (e){
     let audio = document.getElementById(`audio-element${e.target.value}`);
 
     setCommentTimeStamp(parseInt(audio.currentTime))
     console.log(`${audio.currentTime} of blob_id ${e.target.value}`);
     setShowCommentForm(!showCommentForm);
-    
 }
 
 // ----------DELETE COMMENT ----------
