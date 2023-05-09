@@ -38,8 +38,10 @@ function Project(){
     
   // ------ Select The Asset ------------ 
     function handleChooseAsset(e){
+      console.log(e.target.files[0].name)
+
       setSelectedAsset(Array.from(e.target.files));
-      setFileNameForDisplay(e.target.files[0].name)
+      setFileNameForDisplay(e.target.files[0].name);
     }
 
   // -----------Set The Name of the asset before upload

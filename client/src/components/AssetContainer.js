@@ -32,7 +32,6 @@ function AssetContainer ({
             <h2>Client List:</h2>      
             {project.client_projects.map(index=><p>{index.user.name}</p>)}
           </div>
-            
           : null }
       </div>
         

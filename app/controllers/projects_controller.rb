@@ -41,7 +41,6 @@ class ProjectsController < ApplicationController
         project.assets.last.update(filename: params[:name])
         ActiveStorageAttachment.last.update(project_id: params[:id])
         render json: project
-        
         end
     end
 

@@ -92,6 +92,7 @@ h3 {
 .link-container{
   position: sticky;
   top: 0px;
+  align-content: left;
   height: fit-content;
   padding-bottom: 120px;
   background-image: linear-gradient(180deg, #bbbe64 35%, #272831 100%);
@@ -102,8 +103,7 @@ h3 {
   text-decoration: none;
   color: #443850;
   font-size: x-large;
-  padding-left: 3vw;
-  padding-right: 3vw;
+  padding-left: 5px;
   padding-top: 10px;
   padding-bottom: 10px;
   display: flex;
@@ -171,10 +171,12 @@ h3 {
 .settings-item{
   border: 5px;
   border-color: rgba(144, 188, 154, 0.696);
-  border-style:groove;
+  border-style: ridge;
+  border-width: 2px;
   border-radius: 7px;
   margin:1em;
   padding: .5em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* asset card styling */
