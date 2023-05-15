@@ -48,7 +48,6 @@ class ProjectsController < ApplicationController
         asset=Project.find_by(id: params[:project_id]).assets.find_by(id: params[:asset_id])
         asa=ActiveStorageAttachment.find_by(id: params[:asset_id])
         asa.destroy
-        asset.purge
         project=Project.find_by(id: params[:project_id])
         render json: project
     end
