@@ -77,8 +77,8 @@ function Project(){
           (response) => {
             if (response.ok){
           response.json().then((data) => {
+            setProject(data); 
             setProjectURLs(data.asset_urls);
-              setProject(data);  
               setAssetNames(data.asset_names);
               setFileNameForDisplay("");
               setSelectedAsset([]);
@@ -111,7 +111,7 @@ function Project(){
           setProjectURLs(data.asset_urls);
           setProject(data);  
           setAssetNames(data.asset_names);
-          console.log(data)
+          console.log(data);
     }
       )
     }

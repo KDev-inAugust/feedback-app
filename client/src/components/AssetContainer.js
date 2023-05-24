@@ -14,6 +14,7 @@ function AssetContainer ({
     assetErrors
     }) {
 
+      console.log("asset container loaded")
  // ------------------------------- Return ----------------------------
   
  return (

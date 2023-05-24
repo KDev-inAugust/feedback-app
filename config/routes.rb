@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   post "/add_asset", to: "projects#add_asset"
   put "/asset_purge", to: "projects#asset_purge"
-  # patch "/comments/:id", to: "comments#update"
-  # Defines the root path route ("/")
-  # root "articles#index"
+  
+
 end

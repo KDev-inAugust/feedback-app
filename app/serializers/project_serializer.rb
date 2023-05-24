@@ -7,5 +7,4 @@ class ProjectSerializer < ActiveModel::Serializer
   has_many :comments, through: :active_storage_attachments
   has_many :client_projects
 
-  
 end

@@ -10,7 +10,9 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
     const [commentText, setCommentText] = useState("");
     const [assetComments, setAssetComments] = useState(comments);
 
+// ----------- useContext to associate logged-in user with posted comments
     const postingUser=useContext(UserContext)
+// ------------------------------------------------------------------------
 
     useEffect(()=>{
         let audio = document.getElementById(`audio-element${index}`);
@@ -32,9 +34,10 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
             body: commentText
         })
         }).then(r=>r.json()).then((data)=>{setAssetComments(data)});
-        setShowCommentForm(false)
+        setShowCommentForm(false);
       }
-// -------------update comment on asset ---------
+
+// -------------update a comment on an asset ---------
 
 function handleUpdateClientComment(commentBody, commentTime, id){
     console.log(`update client comment ${id}`);
@@ -59,7 +62,7 @@ function handleUpdateClientComment(commentBody, commentTime, id){
     )})
 }
 
-// ------------ delete comment on asset -------------
+// ------------ delete a comment on an asset -------------
   function handleDeleteClientComment (id){
     console.log(id)
         fetch(`/comments/${id}`,{
@@ -79,36 +82,36 @@ function handleShowCommentForm (e){
     setShowCommentForm(!showCommentForm);
 }
 
-// pass comment state(s) up to ClientAssetContainer for "POST"
+// ------- Click Event Handler for adding a comment
     function handleClick(e){
         handleAddComment(commentTimeStamp, commentText, e.target.value)
     }
 
 
+
     return (
         <div id="asset" key={index}>
             <h2>{name}</h2>
-        <audio controls src={url} id={`audio-element${index}`} key={index}/>
-        <button onClick={handleShowCommentForm} value={index}>add comment</button>
+            <audio controls src={url} id={`audio-element${index}`} key={index}/>
+            <button onClick={handleShowCommentForm} value={index}>add comment</button>
 
-        {showCommentForm? 
-            <div>
-            <p>comment at {`${parseInt(commentTimeStamp/60)}:${commentTimeStamp%60}`} seconds</p>
-            <input type="text" onChange={e=>setCommentText(e.target.value)}/>
-            <button onClick={handleClick} value={index}>add and close</button>
-            </div>
+            {showCommentForm? 
+                <div>
+                <p>comment at {`${parseInt(commentTimeStamp/60)}:${commentTimeStamp%60}`} seconds</p>
+                <input type="text" onChange={e=>setCommentText(e.target.value)}/>
+                <button onClick={handleClick} value={index}>add and close</button>
+                </div>
+                : 
+                <p></p>}
 
-            : 
-            <p></p>}
+            <ClientAssetComments 
+                clientId={clientId} 
+                comments={assetComments} 
+                assetDuration={assetDuration}
+                handleDeleteClientComment={handleDeleteClientComment}
+                handleUpdateClientComment={handleUpdateClientComment}
+            />
 
-        <ClientAssetComments 
-        clientId={clientId} 
-        comments={assetComments} 
-        assetDuration={assetDuration}
-        handleDeleteClientComment={handleDeleteClientComment}
-        handleUpdateClientComment={handleUpdateClientComment}
-        />
-       
         </div>
     )
 }

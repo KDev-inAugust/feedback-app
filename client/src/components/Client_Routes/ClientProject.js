@@ -7,7 +7,6 @@ function ClientProject ({clientProject, clientProjectUrls}) {
     return (
         <div id="asset">
             <h1>{clientProject.name}</h1>
-
             {clientProjectUrls.map((url, index)=>{
                 
                 return( 
@@ -23,7 +22,6 @@ function ClientProject ({clientProject, clientProjectUrls}) {
             })}
 
         </div>
-        
     )
 
 }

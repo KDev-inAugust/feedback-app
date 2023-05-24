@@ -5,7 +5,6 @@ import { UserContext } from "../App";
 function ClientAssetComment({comment, index, assetDuration, handleUpdateClientComment, handleDeleteClientComment }){
     const [showEditCommentFields, setShowEditCommentFields] = useState(false);
     const [commentBody, setCommentBody] = useState(null);
-    // const [editMode, setEditMode] = useState(false)
     const [commentTime, setCommentTime] = useState(null);
     
     let loggedInUser=useContext(UserContext)
@@ -58,6 +57,8 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
         <p>{`at ${parseMins}:${parseSecs}`}</p>
         <p>{`by "${comment.user_name}"`}</p>
 
+    {/* add edit buttons if this comment is yours as a client */}
+
         {comment.user_id===loggedInUser.id? 
         <div>
             {showEditCommentFields? 
@@ -83,6 +84,7 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
             }
             
         </div>
+        // you don't get edit buttons, this is someone else's comment.
         : null }
         
    </div>

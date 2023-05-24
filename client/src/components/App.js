@@ -15,8 +15,6 @@ function App() {
   const [userClientProjectArray, setUserClientProjectArray] = useState([])
   const [errors, setErrors] = useState(null)
   
-  
-  
 
 // ----------this "ME" effect checks the "ME" anytime this page reloads------
   useEffect(()=>{
@@ -47,6 +45,13 @@ function App() {
     else
     r.json().then((data) => {setError(data.error); console.log(error)})
     })
+}
+
+// --------------- LOG OUT function ---------
+function handleLogout(){
+  fetch("/logout", {
+    method: "DELETE",
+  }).then(()=> {setUser(null); setError(null); setErrors(null)})
 }
 
 // --------------- add Client to Project -----------------------
@@ -91,12 +96,7 @@ function AddClientProject(projectID, userID){
     })
   }
 
-// --------------- LOG OUT function ---------
-  function handleLogout(){
-    fetch("/logout", {
-      method: "DELETE",
-    }).then(()=> {setUser(null); setError(null); setErrors(null)})
-  }
+
 
 // ------------ ADD PROJECT function -----------
   function addProject(name){
@@ -137,7 +137,7 @@ function AddClientProject(projectID, userID){
    
   }
 
-// ----------the RETURN -----------
+// ---------- the RETURN -----------
    if(user!==null)  { 
   return(
    

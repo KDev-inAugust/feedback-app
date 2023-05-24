@@ -8,16 +8,15 @@ function ClientProjectContainer (){
     const [clientProjectUrls, setClientProjectURLs] = useState([]);
     const { id } = useParams();
 
-    // ------- get the Project data for this project -------
+// ------- get the Project data for this project -------
     useEffect(()=>{
         fetch (`/client_projects/${id}`)
         .then((r)=>r.json()).then((data)=>{
+          // consider refactoring into one piece of state if they are both set together
             setClientProject(data);
             setClientProjectURLs(data.asset_urls)
         })
       },[])
-
-// ------------------
 
 
 // -------the return----------------
@@ -31,6 +30,5 @@ function ClientProjectContainer (){
 
 
 }
-
 
 export default ClientProjectContainer;

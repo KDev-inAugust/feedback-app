@@ -27,9 +27,4 @@ class Project < ApplicationRecord
       end
      end
 
-    #  def asset_id_to_URL(params)
-    #     asset=assets.find_by(id: params)
-    #     Rails.application.routes.url_helpers.rails_blob_path(asset, only_path: true)
-    #  end
-
 end
