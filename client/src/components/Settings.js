@@ -23,12 +23,10 @@ function Settings ({user, userProjectsArray, deleteProject, addProject, AddClien
     // -------------- add a client to the project --------------
 
     function handleSelectProject(e){
-        console.log(e.target.value);
         setSelectedClientProject(e.target.value);
     }
 
     function handleSelectUser(e){
-        console.log(e.target.value);
         setSelecteClientID(e.target.value);
     }
 
@@ -63,7 +61,7 @@ function Settings ({user, userProjectsArray, deleteProject, addProject, AddClien
                         </div>
                         )
                     
-                    : console.log("false")}
+                    : null}
 
                     <br/>
                     <button onClick={deleteProject} value={project.id}>delete project</button>

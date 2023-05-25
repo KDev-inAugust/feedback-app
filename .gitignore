@@ -32,5 +32,5 @@
 /,
 
 #Ignore Files needing special config only for development
-config/credentials.yml.enc
-config/storage.yml
+/config/credentials.yml.enc
+/config/storage.yml

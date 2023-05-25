@@ -30,7 +30,6 @@ function Project(){
     }
     else 
     r.json().then((error)=>{
-      console.log(error);
       setOnLoadProjectText(error.error)
     })
   })
@@ -38,7 +37,6 @@ function Project(){
     
   // ------ Select The Asset ------------ 
     function handleChooseAsset(e){
-      console.log(e.target.files[0].name)
 
       setSelectedAsset(Array.from(e.target.files));
       setFileNameForDisplay(e.target.files[0].name);
@@ -52,8 +50,6 @@ function Project(){
   // -------Attach The Asset to the Project ---------
     function handleAssetSubmit(e){
       e.preventDefault()
-
-      console.log("submit triggered");
       let loader=document.getElementById("loader");
       loader.className="loader"
       
@@ -65,9 +61,9 @@ function Project(){
     formData.append('name', assetName)
   
   
-      for (const value of formData.values()) {
-        console.log('form data values', value);
-      }
+      // for (const value of formData.values()) {
+      //   console.log('form data values', value);
+      // }
   
       fetch("/add_asset/", {
         method: "POST",
@@ -94,7 +90,6 @@ function Project(){
 
     // ------------ Remove Asset From Project -----------
     function handleDeleteAsset (e) {
-      console.log(e.target.value);
         fetch("/asset_purge",{
 
         method: "PUT",
@@ -111,7 +106,6 @@ function Project(){
           setProjectURLs(data.asset_urls);
           setProject(data);  
           setAssetNames(data.asset_names);
-          console.log(data);
     }
       )
     }

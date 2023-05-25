@@ -3,7 +3,6 @@ import { Link} from "react-router-dom";
 
 
 function ProjectContainer ({user, userProjectsArray, userClientProjectArray}){
-   console.log(userClientProjectArray)
 
    return(
     <div>

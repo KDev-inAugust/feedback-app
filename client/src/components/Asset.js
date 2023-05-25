@@ -16,14 +16,12 @@ function handleShowCommentForm (e){
     let audio = document.getElementById(`audio-element${e.target.value}`);
 
     setCommentTimeStamp(parseInt(audio.currentTime))
-    console.log(`${audio.currentTime} of blob_id ${e.target.value}`);
     setShowCommentForm(!showCommentForm);
 }
 
 // ----------DELETE COMMENT ----------
 
 function handleDeleteComment (commentId){
-    console.log(commentId);
 
     fetch(`/comments/${commentId}`,{
         method: "DELETE",
@@ -44,7 +42,6 @@ let commentForm=
 // ------------- add comment to project asset -----------------
 
 function handleAddComment (){
-    console.log("comment sent")
     fetch("/comments",{
       method: "POST",
       headers: {

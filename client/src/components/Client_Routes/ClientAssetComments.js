@@ -4,21 +4,19 @@ import ClientAssetComment from "./ClientAssetComment";
 
 
 
-function ClientAssetComments ({comments, assetDuration, handleUpdateClientComment, handleDeleteClientComment}){
+function ClientAssetComments ({comments, assetIndex, handleUpdateClientComment, handleDeleteClientComment}){
     
     return (
         <div id="asset-comments">
-            
                 {comments.map((comment, index)=>{
                     return(
                     <ClientAssetComment 
                     key={index}
                     comment={comment} 
                     index={index} 
-                    assetDuration={assetDuration}
+                    assetIndex={assetIndex}
                     handleUpdateClientComment={handleUpdateClientComment}
                     handleDeleteClientComment={handleDeleteClientComment}
-
                     />
                     )
            

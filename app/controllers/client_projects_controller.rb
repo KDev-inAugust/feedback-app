@@ -1,9 +1,9 @@
 class ClientProjectsController < ApplicationController
     before_action :authorize
-    # def index
-    #     cp=ClientProject.all
-    #     render json: cp
-    # end
+    def index
+        cp=ClientProject.all
+        render json: cp
+    end
 
     def show
         project=Project.find_by(id: params[:id])

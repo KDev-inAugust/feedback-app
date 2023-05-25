@@ -10,9 +10,11 @@ export const UserContext = createContext(null);
 
 function App() {
   const [user, setUser] = useState(null);
+  // error handling for log-in and sign-up
   const [error, setError] =  useState(null);
   const [userProjectsArray, setUserProjectsArray] = useState([])
   const [userClientProjectArray, setUserClientProjectArray] = useState([])
+  // error handling passed down to settings
   const [errors, setErrors] = useState(null)
   
 
@@ -84,7 +86,6 @@ function AddClientProject(projectID, userID){
 // ----------------- Remove client from project ------------
 
   function removeClientProject(id){
-    console.log(id);
     fetch(`/client_projects/${id}`, {
       method: "DELETE",
     }).then(r=>r.json()).then((project)=>{
@@ -100,7 +101,6 @@ function AddClientProject(projectID, userID){
 
 // ------------ ADD PROJECT function -----------
   function addProject(name){
-    console.log(`add project triggered with name ${name} and user id ${user.id}`);
 
     fetch("/projects",{
       method: "POST",
@@ -125,7 +125,6 @@ function AddClientProject(projectID, userID){
   }
 // ---------DELETE PROJECT function --------
   function deleteProject(e){
-    console.log(`delete project triggered on ${e.target.value}`);
     if(window.confirm("delete this project and all feedback? this cannot be undone.") === true){
       fetch (`/projects/${e.target.value}`,{
         method: "DELETE",

@@ -15,7 +15,7 @@ function LogIn({onLogin}){
             body: JSON.stringify({ username, password }),
         })
         .then((r)=> r.json())
-        .then((user) => {onLogin(user); console.log(user)})
+        .then((user) => {onLogin(user)})
     }
 
     return (

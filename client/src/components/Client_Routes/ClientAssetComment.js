@@ -2,33 +2,34 @@ import { React, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../App";
 
-function ClientAssetComment({comment, index, assetDuration, handleUpdateClientComment, handleDeleteClientComment }){
+function ClientAssetComment({comment, index, assetIndex, handleUpdateClientComment, handleDeleteClientComment }){
     const [showEditCommentFields, setShowEditCommentFields] = useState(false);
     const [commentBody, setCommentBody] = useState(null);
     const [commentTime, setCommentTime] = useState(null);
+    const [assetDuration, setAssetDuration] = useState(0)
     
-    let loggedInUser=useContext(UserContext)
+    let loggedInUser=useContext(UserContext);
+    
+    console.log("asset duration", assetIndex);
 
     // ---------- SHOW EDIT FORM --------------
-
     function handleShowEditForm(){
         setCommentTime(comment.track_time)
         setCommentBody(comment.body)
         setShowEditCommentFields(!showEditCommentFields);
+        let audio = document.getElementById(`audio-element${assetIndex}`);
+        setAssetDuration(audio.duration)
     }
 
     // ----------EDIT COMMENT-----------------   
 
     function handleUpdateBody(e){
-       
         setCommentBody(e.target.value);
     }
 
     function handleUpdateTimeStamp(e){
-        
         setCommentTime(e.target.value);
     }
-
 
     function handleEditComment(e){
         const id=e.target.value;
@@ -44,8 +45,6 @@ function ClientAssetComment({comment, index, assetDuration, handleUpdateClientCo
        } 
         
     }
-
-
 
 
     let remainder=comment.track_time%60;
