@@ -5,6 +5,7 @@ import {
   } from "react-router-dom";
 import ProjectContainer from './ProjectContainer';
 import Project from './Project';
+import Welcome from '../Welcome';
 import Nav from './Nav';
 import Settings from './Settings';
 import ClientProjectContainer from './Client_Routes/ClientProjectContainer';
@@ -13,13 +14,15 @@ import { UserContext } from './App';
 function Dashboard ({handleLogout, userProjectsArray, userClientProjectArray, deleteProject, addProject, AddClientProject, removeClientProject, errors}){
   const userContext=useContext(UserContext);
   
-
-
   const router = createBrowserRouter([
     {
       path: '/',
       element: <Nav handleLogout={handleLogout}/>,
       children: [
+        {
+          path: '/',
+          element: <Welcome />
+        },
         {
           path: '/Projects',
           element: <ProjectContainer 

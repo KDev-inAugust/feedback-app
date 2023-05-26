@@ -133,13 +133,11 @@ function AddClientProject(projectID, userID){
         setUserProjectsArray(newProjectArray)
       }) 
     }
-   
   }
 
 // ---------- the RETURN -----------
    if(user!==null)  { 
   return(
-   
     <div className='App'>
       <header id="App-header">
           <h1>The Feedback App</h1>
