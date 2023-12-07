@@ -61,9 +61,9 @@ function Project(){
     formData.append('name', assetName)
   
   
-      // for (const value of formData.values()) {
-      //   console.log('form data values', value);
-      // }
+      for (const value of formData.values()) {
+        console.log('form data values', value);
+      }
   
       fetch("/add_asset/", {
         method: "POST",
@@ -71,6 +71,9 @@ function Project(){
         })
         .then(
           (response) => {
+
+            console.log(response);
+            
             if (response.ok){
           response.json().then((data) => {
             setProject(data); 
