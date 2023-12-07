@@ -22,6 +22,11 @@ gem 'active_model_serializers', '~> 0.10.13'
 gem 'jsonapi-serializer', '~> 2.2'
 # --------end added gems ------------
 
+gem 'net-http', require: false
+gem 'net-imap', require: false
+gem 'net-protocol', require: false
+gem 'net-smtp', require: false
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
