@@ -16,7 +16,7 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
 
 // ------------- add comment to project asset -----------------
     function handleAddComment (commentTimeStamp, commentText){
-        fetch("/comments",{
+        fetch("/api/comments",{
           method: "POST",
           headers: {
             "Content-Type":"application/json",
@@ -35,7 +35,7 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
 
 function handleUpdateClientComment(commentBody, commentTime, id){
    
-    fetch(`/comments/${id}`,{
+    fetch(`/api/comments/${id}`,{
         method: "PATCH",
         headers: {
             "Content-Type":"application/json",
@@ -57,7 +57,7 @@ function handleUpdateClientComment(commentBody, commentTime, id){
 
 // ------------ delete a comment on an asset -------------
   function handleDeleteClientComment (id){
-        fetch(`/comments/${id}`,{
+        fetch(`/api/comments/${id}`,{
             method: "DELETE"
         }).then(r=>r.json()).then((comment)=>{
         setAssetComments(assetComments.filter((index)=>index.id!==comment.id))

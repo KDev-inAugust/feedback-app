@@ -20,7 +20,7 @@ function App() {
 
 // ----------this "ME" effect checks the "ME" anytime this page reloads------
   useEffect(()=>{
-    fetch("/me")
+    fetch("/api/me")
     .then((r)=> {
       if (r.ok) {
         r.json().then((user) => {
@@ -35,7 +35,7 @@ function App() {
 
   // --------LOG IN function ---------
   function handleLogin(){
-  fetch("/me")
+  fetch("/api/me")
   .then((r)=> {
     if (r.ok) {
       r.json().then((user) => {setUser(user); 
@@ -51,7 +51,7 @@ function App() {
 
 // --------------- LOG OUT function ---------
 function handleLogout(){
-  fetch("/logout", {
+  fetch("/api/logout", {
     method: "DELETE",
   }).then(()=> {setUser(null); setError(null); setErrors(null)})
 }
@@ -59,7 +59,7 @@ function handleLogout(){
 // --------------- add Client to Project -----------------------
 function AddClientProject(projectID, userID){
 
-  fetch('/client_projects',{
+  fetch('/api/client_projects',{
       method: "POST",
       headers: {
           "Content-Type": "application/json",
@@ -86,7 +86,7 @@ function AddClientProject(projectID, userID){
 // ----------------- Remove client from project ------------
 
   function removeClientProject(id){
-    fetch(`/client_projects/${id}`, {
+    fetch(`/api/client_projects/${id}`, {
       method: "DELETE",
     }).then(r=>r.json()).then((project)=>{
       setUserProjectsArray(userProjectsArray.map((index)=>{
@@ -102,7 +102,7 @@ function AddClientProject(projectID, userID){
 // ------------ ADD PROJECT function -----------
   function addProject(name){
 
-    fetch("/projects",{
+    fetch("/api/projects",{
       method: "POST",
       headers: {
         "Content-Type":"application/json",
@@ -126,7 +126,7 @@ function AddClientProject(projectID, userID){
 // ---------DELETE PROJECT function --------
   function deleteProject(e){
     if(window.confirm("delete this project and all feedback? this cannot be undone.") === true){
-      fetch (`/projects/${e.target.value}`,{
+      fetch (`/api/projects/${e.target.value}`,{
         method: "DELETE",
       }).then(r=>r.json()).then((project)=>{
         let newProjectArray=userProjectsArray.filter((index)=>{return index.id!==project.id})

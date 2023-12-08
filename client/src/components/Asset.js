@@ -23,7 +23,7 @@ function handleShowCommentForm (e){
 
 function handleDeleteComment (commentId){
 
-    fetch(`/comments/${commentId}`,{
+    fetch(`/api/comments/${commentId}`,{
         method: "DELETE",
     }).then(r=>r.json()).then((comment)=>{
         setAssetComments(assetComments.filter((index)=>index.id!==comment.id));
@@ -42,7 +42,7 @@ let commentForm=
 // ------------- add comment to project asset -----------------
 
 function handleAddComment (){
-    fetch("/comments",{
+    fetch("/api/comments",{
       method: "POST",
       headers: {
         "Content-Type":"application/json",

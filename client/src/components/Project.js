@@ -17,7 +17,7 @@ function Project(){
 
   // ------- get the Project data for this project -------
     useEffect(()=>{
-      fetch (`/projects/${id}/`)
+      fetch (`/api/projects/${id}/`)
       .then((r)=>{
         if (r.ok){
           r.json().then(
@@ -65,7 +65,7 @@ function Project(){
         console.log('form data values', value);
       }
   
-      fetch("/add_asset/", {
+      fetch("/api/add_asset/", {
         method: "POST",
         body: formData,
         })
@@ -93,7 +93,7 @@ function Project(){
 
     // ------------ Remove Asset From Project -----------
     function handleDeleteAsset (e) {
-        fetch("/asset_purge",{
+        fetch("/api/asset_purge",{
 
         method: "PUT",
         headers: {

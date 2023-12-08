@@ -1,17 +1,22 @@
 Rails.application.routes.draw do
-  resources :client_projects
-  resources :comments
-  resources :projects
-  resources :users
-  resources :active_storage_attachments
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  namespace :api do
 
-  post "/login", to: "sessions#create"
-  post "/signup", to: "users#create"
-  delete "/logout", to: "sessions#destroy"
-  get "/me", to: "users#show"
-  post "/add_asset", to: "projects#add_asset"
-  put "/asset_purge", to: "projects#asset_purge"
+    resources :client_projects
+    resources :comments
+    resources :projects
+    resources :users
+    resources :active_storage_attachments
+    # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+    post "/login", to: "sessions#create"
+    post "/signup", to: "users#create"
+    delete "/logout", to: "sessions#destroy"
+    get "/me", to: "users#show"
+    post "/add_asset", to: "projects#add_asset"
+    put "/asset_purge", to: "projects#asset_purge"
   
+  end
+
+  get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

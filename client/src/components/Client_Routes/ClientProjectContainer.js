@@ -10,7 +10,7 @@ function ClientProjectContainer (){
 
 // ------- get the Project data for this project -------
     useEffect(()=>{
-        fetch (`/client_projects/${id}`)
+        fetch (`/api/client_projects/${id}`)
         .then((r)=>r.json()).then((data)=>{
           // consider refactoring into one piece of state if they are both set together
             setClientProject(data);
