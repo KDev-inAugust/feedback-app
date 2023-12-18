@@ -94,7 +94,8 @@ function Project(){
                      if(attempts<=5){
                       handleAssetSubmit(e);
                       attempts++;
-                    }else(console.log("attempt limit reached"))
+                    }else{console.log("attempt limit reached"); 
+                    setAssetErrors("the upload failed please refresh the page and try again")}
                     };
           }
         )
