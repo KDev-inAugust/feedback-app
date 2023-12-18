@@ -48,7 +48,10 @@ function Project(){
       setAssetName(e.target.value)
     }
   // -------Attach The Asset to the Project ---------
+
+  let attempts = 1;
     function handleAssetSubmit(e){
+      
       e.preventDefault()
       let loader=document.getElementById("loader");
       loader.className="loader"
@@ -65,12 +68,6 @@ function Project(){
         console.log('form data values', value);
       }
 
-      const tryPost = ()=>{
-        fetch("/api/add_asset/", {
-          method: "POST",
-          body: formData,
-          })
-      }
   
       fetch("/api/add_asset/", {
         method: "POST",
@@ -93,7 +90,11 @@ function Project(){
               setAssetErrors(null);
               }
               )
-            } else {console.log("retry")};
+            } else {console.log("attempt=>", attempts);
+                     if(attempts<=5){
+                      handleAssetSubmit(e)
+                    }else(console.log("attempt limit reached"))
+                    };
           }
         )
     }
