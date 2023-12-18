@@ -64,6 +64,13 @@ function Project(){
       for (const value of formData.values()) {
         console.log('form data values', value);
       }
+
+      const tryPost = ()=>{
+        fetch("/api/add_asset/", {
+          method: "POST",
+          body: formData,
+          })
+      }
   
       fetch("/api/add_asset/", {
         method: "POST",
@@ -86,7 +93,7 @@ function Project(){
               setAssetErrors(null);
               }
               )
-            } else response.json().then((data)=>{setAssetErrors(data.error); loader.className="hidden";})
+            } else {console.log("retry")};
           }
         )
     }
