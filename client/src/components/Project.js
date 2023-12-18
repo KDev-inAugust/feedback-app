@@ -92,7 +92,8 @@ function Project(){
               )
             } else {console.log("attempt=>", attempts);
                      if(attempts<=5){
-                      handleAssetSubmit(e)
+                      handleAssetSubmit(e);
+                      attempts++;
                     }else(console.log("attempt limit reached"))
                     };
           }
