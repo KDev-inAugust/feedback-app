@@ -9,6 +9,7 @@ function Asset ({url, index, project, assetNames, comments, handleDeleteAsset}){
     const [commentTimeStamp, setCommentTimeStamp] = useState(0);
     const [commentText, setCommentText] = useState("");
     const [assetComments, setAssetComments]=useState(comments);
+    const [audioFileLoader, setAudioFileLoader] = useState(<div><p>...loading audio</p></div>)
 
 
 //  -------------- show add comment form -------
@@ -58,6 +59,14 @@ function handleAddComment (){
     setShowCommentForm(false);
   }
 
+// write the code for onCanPlay through here 
+
+
+function handleCanPlayThrough(){
+    console.log("all good");
+    setAudioFileLoader(<div><p>audio loaded</p></div>)
+};
+
 
 return (
     <div id="asset" key={index}>
@@ -67,7 +76,10 @@ return (
                 id={`audio-element${project.asset_ids[index]}`}
                 key={url} 
                 src={url}
+                preload="auto"
+                onCanPlayThrough={handleCanPlayThrough}
                 />
+                {audioFileLoader}
                 <button 
                 onClick={handleShowCommentForm} value={project.asset_ids[index]}
                 key={index}>{showCommentForm? "cancel comment" : "add comment"}</button>
@@ -81,6 +93,8 @@ return (
                         value={project.asset_ids[index]}>delete this file and all comments</button>
               </div>
     )
+
+    
 }
 
 export default Asset;
