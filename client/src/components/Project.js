@@ -92,9 +92,9 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
       
   const formData = new FormData();
   
-  formData.append('asset', selectedAsset[0]);
-  formData.append('id', id);
-  formData.append('name', assetName);
+  // formData.append('asset', selectedAsset[0]);
+  // formData.append('id', id);
+  // formData.append('name', assetName);
 
   const  uploadResults = await  Promise.all(fileUploads);
   
@@ -103,12 +103,18 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
       }
 
   uploadResults.forEach(({ signed_id } ) => {
-        data.append(formData, signed_id);
+        data.append(selectedAsset, signed_id);
+        data.append('asset', selectedAsset[0]);
+        data.append('id', id);
+        data.append('name', assetName);
       });
-  
+      
+      console.log("data=>", data)
+      console.log("formData=>", formData);
+
   fetch("/api/add_asset/", {
         method: "POST",
-        body: formData,
+        body: data,
         })
         .then(
           (response) => {
