@@ -1,5 +1,6 @@
 import '../App.css';
 import React, {useEffect, useState} from 'react';
+import { DirectUpload } from  'activestorage';
 import { useParams } from 'react-router-dom';
 import AssetContainer from './AssetContainer';
 
@@ -50,26 +51,65 @@ function Project(){
   // -------Attach The Asset to the Project ---------
 
   let attempts = 1;
-    function handleAssetSubmit(e){
+
+
+
+   // --------- Direct Upload Requests Signed URL from Rails -----------
+    
+  // Main onSubmit function
+
+const onSubmit = async () => {
       
-      e.preventDefault()
-      let loader=document.getElementById("loader");
-      loader.className="loader"
+  console.log("on submit called stage one");
+  const data = new  FormData();
+  const fileUploads = [];
+
+  selectedAsset.forEach((file) => {
+      fileUploads.push(uploadFile(file));
+  });
+
+  await uploadFilesAndSubmit(data, fileUploads);
+};
+
+const uploadFile = (file) => new Promise((resolve, reject) => {
+console.log("file upload started stage 2");
+const upload = new DirectUpload(
+  file,
+  `/rails/active_storage/direct_uploads`,
+);
+upload.create((error, blob) => {
+  if (error) {
+    reject();
+  } else {
+    resolve({ signed_id: blob.signed_id });
+  }
+});
+});
+
+
+
+const uploadFilesAndSubmit = async (data, fileUploads) =>{
+  console.log("stage 3 uploadFilesAndSubmitCalled");
+  let loader=document.getElementById("loader");
+  loader.className="loader"
       
-      
-      const formData = new FormData();
+  const formData = new FormData();
   
-    formData.append('asset', selectedAsset[0])
-    formData.append('id', id)
-    formData.append('name', assetName)
+  formData.append('asset', selectedAsset[0]);
+  formData.append('id', id);
+  formData.append('name', assetName);
+
+  const  uploadResults = await  Promise.all(fileUploads);
   
-  
-      for (const value of formData.values()) {
+  for (const value of formData.values()) {
         console.log('form data values', value);
       }
 
+  uploadResults.forEach(({ signed_id } ) => {
+        data.append(formData, signed_id);
+      });
   
-      fetch("/api/add_asset/", {
+  fetch("/api/add_asset/", {
         method: "POST",
         body: formData,
         })
@@ -92,7 +132,7 @@ function Project(){
               )
             } else {console.log("attempt=>", attempts);
                      if(attempts<=5){
-                      handleAssetSubmit(e);
+                      onSubmit();
                       attempts++;
                     }else{console.log("attempt limit reached"); 
                     setAssetErrors("the upload failed please refresh the page and try again")}
@@ -132,7 +172,7 @@ function Project(){
         projectURLs={projectURLs}
         handleChooseAsset={handleChooseAsset}
         handleSetAssetName={handleSetAssetName}
-        handleAssetSubmit={handleAssetSubmit}
+        handleAssetSubmit={onSubmit}
         handleDeleteAsset={handleDeleteAsset}
         assetNames={assetNames}
         fileNameForDisplay={fileNameForDisplay}

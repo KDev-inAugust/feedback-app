@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  namespace :api do
+    post '/rails/active_storage/direct_uploads', to: 'overrides/direct_uploads#create'
 
+  namespace :api do
+    
     resources :client_projects
     resources :comments
     resources :projects
