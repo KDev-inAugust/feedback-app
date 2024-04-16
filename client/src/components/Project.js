@@ -50,9 +50,6 @@ function Project(){
     }
   // -------Attach The Asset to the Project ---------
 
-  let attempts = 1;
-
-
 
    // --------- Direct Upload Requests Signed URL from Rails -----------
     
@@ -130,12 +127,9 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
               setAssetErrors(null);
               }
               )
-            } else {console.log("attempt=>", attempts);
-                     if(attempts<=5){
-                      onSubmit();
-                      attempts++;
-                    }else{console.log("attempt limit reached"); 
-                    setAssetErrors("the upload failed please refresh the page and try again")}
+            } else {console.log("error", response);
+            setAssetErrors("the upload failed please refresh the page and try again")
+                     
                     };
           }
         )
