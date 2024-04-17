@@ -78,11 +78,11 @@ upload.create((error, blob) => {
   if (error) {
     reject();
   } else {
+    console.log("blob", blob);
     resolve({ signed_id: blob.signed_id });
   }
 });
 });
-
 
 
 const uploadFilesAndSubmit = async (data, fileUploads) =>{
@@ -103,16 +103,16 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
       }
 
   uploadResults.forEach(({ signed_id } ) => {
-    console.log("signed id=>", signed_id)
         data.append(selectedAsset[0], signed_id);
+        data.append('signed_id', signed_id);
         data.append('asset', selectedAsset[0]);
         data.append('id', id);
         data.append('name', assetName);
       });
       
-      console.log("data=>", data)
-      console.log("formData=>", formData);
-
+      console.log("upload results=>", uploadResults)
+      // let fileUrl = `/rails/active_storage/blobs/redirect/${data.signed_id}`
+      
   fetch("/api/add_asset/", {
         method: "POST",
         body: data,
@@ -124,6 +124,7 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
             
             if (response.ok){
           response.json().then((data) => {
+            console.log("data=>", data)
             setProject(data); 
             setProjectURLs(data.asset_urls);
               setAssetNames(data.asset_names);

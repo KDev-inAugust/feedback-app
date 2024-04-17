@@ -37,12 +37,16 @@ class Api::ProjectsController < ApplicationController
             render json: { error: "make sure you have both a file and a file name"}, status: :unprocessable_entity
         else 
         project = Project.find_by(id: params[:id])
-        project.assets.attach(params[:asset])
+        
+        project.assets.attach(params[:signed_id])
+
         project.assets.last.update(filename: params[:name])
         ActiveStorageAttachment.last.update(project_id: params[:id])
         render json: project
         end
+
     end
+
 
     def asset_purge
         asset=Project.find_by(id: params[:project_id]).assets.find_by(id: params[:asset_id])
@@ -57,6 +61,7 @@ class Api::ProjectsController < ApplicationController
     def project_params
         params.permit(:name, :user_id)
     end
+
 
    
 end
