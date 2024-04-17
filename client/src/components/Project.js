@@ -96,14 +96,15 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
   // formData.append('id', id);
   // formData.append('name', assetName);
 
-  const  uploadResults = await  Promise.all(fileUploads);
+  const  uploadResults = await Promise.all(fileUploads);
   
   for (const value of formData.values()) {
         console.log('form data values', value);
       }
 
   uploadResults.forEach(({ signed_id } ) => {
-        data.append(selectedAsset, signed_id);
+    console.log("signed id=>", signed_id)
+        data.append(selectedAsset[0], signed_id);
         data.append('asset', selectedAsset[0]);
         data.append('id', id);
         data.append('name', assetName);
