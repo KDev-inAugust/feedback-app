@@ -79,7 +79,7 @@ upload.create((error, blob) => {
     reject();
   } else {
     console.log("blob", blob);
-    resolve({ signed_id: blob.signed_id });
+    resolve({ signed_id: blob.signed_id, key: blob.key });
   }
 });
 });
@@ -87,23 +87,25 @@ upload.create((error, blob) => {
 
 const uploadFilesAndSubmit = async (data, fileUploads) =>{
   console.log("stage 3 uploadFilesAndSubmitCalled");
+  console.log("file Uploads=>", fileUploads);
   let loader=document.getElementById("loader");
-  loader.className="loader"
+  // loader.className="loader"
       
   const formData = new FormData();
   
-  // formData.append('asset', selectedAsset[0]);
-  // formData.append('id', id);
-  // formData.append('name', assetName);
-
+  formData.append('id', id);
+  formData.append('name', assetName);
+  formData.append('asset', selectedAsset[0]);
   const  uploadResults = await Promise.all(fileUploads);
   
   for (const value of formData.values()) {
         console.log('form data values', value);
       }
 
-  uploadResults.forEach(({ signed_id } ) => {
+  uploadResults.forEach(({ signed_id, key } ) => {
+    console.log("key=>", key)
         data.append(selectedAsset[0], signed_id);
+        data.append("key", key)
         data.append('signed_id', signed_id);
         data.append('asset', selectedAsset[0]);
         data.append('id', id);
@@ -125,14 +127,15 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
             if (response.ok){
           response.json().then((data) => {
             console.log("data=>", data)
-            setProject(data); 
-            setProjectURLs(data.asset_urls);
-              setAssetNames(data.asset_names);
-              setFileNameForDisplay("");
-              setSelectedAsset([]);
-              setAssetName("");
-              loader.className="hidden";
-              setAssetErrors(null);
+            // setProject(data); 
+            // setProjectURLs(data.asset_urls);
+            //   setAssetNames(data.asset_names);
+            //   setFileNameForDisplay("");
+            //   setSelectedAsset([]);
+            //   setAssetName("");
+            //   setAssetErrors(null);
+            //   loader.className="hidden";
+              
               }
               )
             } else {console.log("error", response);
