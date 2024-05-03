@@ -126,7 +126,7 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
             
             if (response.ok){
           response.json().then((data) => {
-            console.log("data=>", data)
+            console.log("data=>", data.url)
             // setProject(data); 
             // setProjectURLs(data.asset_urls);
             //   setAssetNames(data.asset_names);
