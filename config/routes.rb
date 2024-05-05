@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :project_files
+  resources :project_media
     post '/rails/active_storage/direct_uploads', to: 'overrides/direct_uploads#create'
 
   namespace :api do
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
     resources :projects
     resources :users
     resources :active_storage_attachments
+    resources :project_files
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
     post "/login", to: "sessions#create"

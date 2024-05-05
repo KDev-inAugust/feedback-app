@@ -1,0 +1,2 @@
+class ProjectFile < ApplicationRecord
+end

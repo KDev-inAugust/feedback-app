@@ -61,8 +61,10 @@ class Api::ProjectsController < ApplicationController
         # 7 days from now
         obj = s3.bucket('kmssawsbucket').object(params[:key])
         url = obj.presigned_url(:get, expires_in: 500000)
-   
-        render json: { project: project.name, url: url }
+            
+        project_file=ProjectFile.create(name: params[:name], key: params[:key], project_id: params[:id])
+
+        render json: { project: project.name, url: url, project_file: project_file }
         end
     end
 
