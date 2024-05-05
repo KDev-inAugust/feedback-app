@@ -34,4 +34,16 @@ class Project < ApplicationRecord
         end
      end
 
+      def project_file_names
+        project_files.map do |file|
+          file.name
+        end
+      end
+
+    def project_file_ids
+      project_files.map do |file|
+        file.id
+        end
+      end
+
 end

@@ -1,15 +1,20 @@
 class Api::ProjectsController < ApplicationController
     before_action :authorize
+   
     def index
         projects=Project.all
         # render json: projects, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
         render json: projects.with_attached_assets
     end
 
+    
+
     def show
         project=Project.find_by(id: params[:id])
+
         if (project.user_id==session[:user_id] )
         render json: project, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name', 'client_projects', 'client_projects.projects']
+
         else render json: { error: "This Account Does Not have access to that path, click the project link above to access Project for this account"}, status: :unauthorized
         end
     end
@@ -52,6 +57,7 @@ class Api::ProjectsController < ApplicationController
           ),
           region: region
         )
+
         # project.assets.attach(params[:key])
         # project.assets.last.update(filename: params[:name])
         # ActiveStorageAttachment.last.update(project_id: params[:id])
@@ -62,7 +68,7 @@ class Api::ProjectsController < ApplicationController
         obj = s3.bucket('kmssawsbucket').object(params[:key])
         url = obj.presigned_url(:get, expires_in: 500000)
             
-        project_file=ProjectFile.create(name: params[:name], key: params[:key], project_id: params[:id])
+        project_file=ProjectFile.create(name: params[:name], key: url.to_str, project_id: params[:id])
 
         render json: { project: project.name, url: url, project_file: project_file }
         end
@@ -83,7 +89,5 @@ class Api::ProjectsController < ApplicationController
         params.permit(:name, :user_id)
     end
 
-
-   
 end
 
