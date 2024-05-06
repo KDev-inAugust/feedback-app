@@ -1,6 +1,8 @@
 class Api::ProjectsController < ApplicationController
     before_action :authorize
+    before_action :storage_config
    
+
     def index
         projects=Project.all
         # render json: projects, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
@@ -8,11 +10,17 @@ class Api::ProjectsController < ApplicationController
     end
 
     
-
     def show
         project=Project.find_by(id: params[:id])
-
+        
         if (project.user_id==session[:user_id] )
+           # 7 days from now
+            project.project_files.map do |file|
+                obj = @s3.bucket('kmssawsbucket').object(file.key)
+                url = obj.presigned_url(:get, expires_in: 7200)
+                file.url=url
+            end
+
         render json: project, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name', 'client_projects', 'client_projects.projects']
 
         else render json: { error: "This Account Does Not have access to that path, click the project link above to access Project for this account"}, status: :unauthorized
@@ -43,8 +51,9 @@ class Api::ProjectsController < ApplicationController
         else 
         project = Project.find_by(id: params[:id])
         object_key = params[:key] # Assuming key is passed as a parameter
-
+    
         configuration = Rails.application.config.active_storage.service_configurations(:amazon)
+        
         region = configuration["amazon"]["region"]
         access_key_id = configuration["amazon"]["access_key_id"]
         secret_access_key = configuration["amazon"]["secret_access_key"]
@@ -68,12 +77,11 @@ class Api::ProjectsController < ApplicationController
         obj = s3.bucket('kmssawsbucket').object(params[:key])
         url = obj.presigned_url(:get, expires_in: 500000)
             
-        project_file=ProjectFile.create(name: params[:name], key: url.to_str, project_id: params[:id])
+        project_file=ProjectFile.create(name: params[:name], key: params[:key], project_id: params[:id])
 
-        render json: { project: project.name, url: url, project_file: project_file }
+        render json: project
         end
     end
-
 
     def asset_purge
         asset=Project.find_by(id: params[:project_id]).assets.find_by(id: params[:asset_id])
@@ -89,5 +97,20 @@ class Api::ProjectsController < ApplicationController
         params.permit(:name, :user_id)
     end
 
+    def storage_config
+        configuration = Rails.application.config.active_storage.service_configurations(:amazon)
+        region = configuration["amazon"]["region"]
+        access_key_id = configuration["amazon"]["access_key_id"]
+        secret_access_key = configuration["amazon"]["secret_access_key"]
+        @bucket = configuration["amazon"]["bucket"]
+
+        @s3 = Aws::S3::Resource.new(
+          credentials: Aws::Credentials.new(
+            access_key_id,
+            secret_access_key
+          ),
+          region: region
+        )
+    end
 end
 

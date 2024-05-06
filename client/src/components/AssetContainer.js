@@ -45,7 +45,7 @@ function AssetContainer ({
               project={project} 
               assetNames={assetNames}
               handleDeleteAsset={handleDeleteAsset}
-              comments={project.active_storage_attachments[index].comments}
+              comments={project.project_files.comments}
               />
             )
           })) : (<h3>Loading</h3>)

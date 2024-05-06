@@ -30,7 +30,7 @@ class Project < ApplicationRecord
 # new methods for accessing direct uploaded files
      def project_file_urls
         project_files.map do |file|
-          file.key
+          file.url
         end
      end
 

@@ -23,6 +23,7 @@ function Project(){
         if (r.ok){
           r.json().then(
             (data)=>{
+              console.log(data)
             setProjectURLs(data.asset_urls);
             setProject(data);  
             setAssetNames(data.asset_names);
@@ -126,10 +127,10 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
             
             if (response.ok){
           response.json().then((data) => {
-            console.log("data=>", data.url, "project file created=>", data.project_file)
+            console.log("data=>", data)
             // setProject(data); 
-            // setProjectURLs(data.asset_urls);
-            //   setAssetNames(data.asset_names);
+            // setProjectURLs(data.project_file_urls);
+            //   setAssetNames(data.project_file_names);
             //   setFileNameForDisplay("");
             //   setSelectedAsset([]);
             //   setAssetName("");
