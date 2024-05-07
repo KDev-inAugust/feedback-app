@@ -24,7 +24,7 @@ function Project(){
           r.json().then(
             (data)=>{
               console.log(data)
-            setProjectURLs(data.asset_urls);
+            setProjectURLs(data.project_file_urls);
             setProject(data);  
             setAssetNames(data.asset_names);
           }
@@ -128,14 +128,14 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
             if (response.ok){
           response.json().then((data) => {
             console.log("data=>", data)
-            // setProject(data); 
-            // setProjectURLs(data.project_file_urls);
-            //   setAssetNames(data.project_file_names);
-            //   setFileNameForDisplay("");
-            //   setSelectedAsset([]);
-            //   setAssetName("");
-            //   setAssetErrors(null);
-            //   loader.className="hidden";
+            setProject(data); 
+            setProjectURLs(data.project_file_urls);
+              setAssetNames(data.project_file_names);
+              setFileNameForDisplay("");
+              setSelectedAsset([]);
+              setAssetName("");
+              setAssetErrors(null);
+              loader.className="hidden";
               
               }
               )
@@ -162,10 +162,10 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
             })
         }).then(r=>r.json())
         .then((data)=>{
-          setProjectURLs(data.asset_urls);
+          setProjectURLs(data.project_file_urls);
           setProject(data);  
-          setAssetNames(data.asset_names);
-    }
+          setAssetNames(data.project_file_names);
+        }
       )
     }
     

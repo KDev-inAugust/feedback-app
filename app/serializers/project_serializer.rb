@@ -5,6 +5,7 @@ class ProjectSerializer < ActiveModel::Serializer
   has_many :assets
   has_many :active_storage_attachments
   has_many :comments, through: :active_storage_attachments
+  has_many :comments, through: :project_files
   has_many :client_projects
   has_many :project_files
 

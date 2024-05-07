@@ -6,6 +6,7 @@ class Project < ApplicationRecord
      has_many :project_files, dependent: :destroy
      has_many :active_storage_attachments, dependent: :destroy
      has_many :comments, through: :active_storage_attachments
+     has_many :comments, through: :project_files
      has_many :client_projects, dependent: :destroy
 
      #  this method generates the urls for the assets that we will use

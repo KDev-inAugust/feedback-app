@@ -7,7 +7,8 @@ function AssetComments ({assetComments, handleDeleteComment}){
     }
     return (
         <div >
-            {assetComments.map((comment, index)=>{
+            <p>Comments Will Go Here</p>
+            {/* {assetComments.map((comment, index)=>{
                 let remainder=comment.track_time%60;
                 let parseSecs=remainder.toLocaleString(undefined, {minimumIntegerDigits: 2})
                 let parseMins=parseInt(comment.track_time/60);
@@ -19,7 +20,7 @@ function AssetComments ({assetComments, handleDeleteComment}){
                             <button value={comment.id} onClick={onClickDeleteComment}>delete comment</button>
                         </div>
                     )
-                })}
+                })} */}
         </div>
     )
 }

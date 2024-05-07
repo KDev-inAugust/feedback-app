@@ -5,6 +5,11 @@ class Api::ProjectFilesController < ApplicationController
         render json: project_files
     end
 
+    def show
+        project_file=ProjectFile.find_by(id: params[:id])
+        render json: project_file
+    end
+
     def create
         project_file=ProjectFile.create(project_params)
         if project.valid?
@@ -23,6 +28,6 @@ class Api::ProjectFilesController < ApplicationController
     private
 
     def project_file_params
-        params.permit(:name, :project_id, key)
+        params.permit(:name, :project_id, :key, :url)
     end
 end

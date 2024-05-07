@@ -12,7 +12,6 @@ class Api::ProjectsController < ApplicationController
     
     def show
         project=Project.find_by(id: params[:id])
-        
         if (project.user_id==session[:user_id] )
            # 7 days from now
             project.project_files.map do |file|
@@ -20,9 +19,7 @@ class Api::ProjectsController < ApplicationController
                 url = obj.presigned_url(:get, expires_in: 7200)
                 file.url=url
             end
-
-        render json: project, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name', 'client_projects', 'client_projects.projects']
-
+        render json: project, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name', 'client_projects', 'client_projects.projects', 'project_files.comments']
         else render json: { error: "This Account Does Not have access to that path, click the project link above to access Project for this account"}, status: :unauthorized
         end
     end
@@ -77,7 +74,7 @@ class Api::ProjectsController < ApplicationController
         obj = s3.bucket('kmssawsbucket').object(params[:key])
         url = obj.presigned_url(:get, expires_in: 500000)
             
-        project_file=ProjectFile.create(name: params[:name], key: params[:key], project_id: params[:id])
+        project_file=ProjectFile.create(name: params[:name], key: params[:key], project_id: params[:id], url: url)
 
         render json: project
         end

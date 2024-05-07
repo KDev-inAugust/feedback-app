@@ -15,7 +15,7 @@ function AssetContainer ({
     }) {
 
  // ------------------------------- Return ----------------------------
-  
+  console.log("PorjectURLS=>", projectURLs)
  return (
     <div>
       <label for="asset-upload-field">
@@ -39,13 +39,13 @@ function AssetContainer ({
           (projectURLs.map((url, index)=>{
             return (
               <Asset 
-              key={url}
+              key={index}
               url={url} 
               index={index} 
               project={project} 
               assetNames={assetNames}
               handleDeleteAsset={handleDeleteAsset}
-              comments={project.project_files.comments}
+              comments={project.project_files[index].comments}
               />
             )
           })) : (<h3>Loading</h3>)

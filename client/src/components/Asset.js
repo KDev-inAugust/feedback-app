@@ -3,7 +3,7 @@ import { useState } from "react";
 import AssetComments from "./AssetComments";
 
 function Asset ({url, index, project, assetNames, comments, handleDeleteAsset}){
-
+console.log("URL=>", url)
 
     const [showCommentForm, setShowCommentForm] = useState(false);
     const [commentTimeStamp, setCommentTimeStamp] = useState(0);
@@ -59,21 +59,19 @@ function handleAddComment (){
     setShowCommentForm(false);
   }
 
-// write the code for onCanPlay through here 
-
+// Code for onCanPlay through here 
 
 function handleCanPlayThrough(){
     console.log("all good");
     setAudioFileLoader(<div><p>audio loaded</p></div>)
 };
 
-
 return (
     <div id="asset" key={index}>
                 <p>{assetNames[index]}</p>
-                <p>{project.asset_ids[index]}</p>
+                <p>{project.project_file_ids[index]}</p>
                 <audio controls 
-                id={`audio-element${project.asset_ids[index]}`}
+                id={`audio-element${project.project_file_ids[index]}`}
                 key={url} 
                 src={url}
                 preload="auto"
@@ -81,7 +79,7 @@ return (
                 />
                 {audioFileLoader}
                 <button 
-                onClick={handleShowCommentForm} value={project.asset_ids[index]}
+                onClick={handleShowCommentForm} value={project.project_file_ids[index]}
                 key={index}>{showCommentForm? "cancel comment" : "add comment"}</button>
 
                 {showCommentForm? 
@@ -89,12 +87,10 @@ return (
                     <p></p>}
                 <AssetComments assetComments={assetComments} handleDeleteComment={handleDeleteComment}/>
                 
-                <button onClick={handleDeleteAsset} key={project.asset_ids[index]}  
-                        value={project.asset_ids[index]}>delete this file and all comments</button>
+                <button onClick={handleDeleteAsset} key={project.project_file_ids[index]}  
+                        value={project.project_file_ids[index]}>delete this file and all comments</button>
               </div>
     )
-
-    
 }
 
 export default Asset;
