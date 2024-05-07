@@ -108,7 +108,7 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
         // data.append(selectedAsset[0], signed_id);
         data.append("key", key)
         data.append('signed_id', signed_id);
-        data.append('asset', selectedAsset[0]);
+        // data.append('asset', selectedAsset[0]);
         data.append('id', id);
         data.append('name', assetName);
       });
