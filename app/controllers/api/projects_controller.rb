@@ -47,22 +47,21 @@ class Api::ProjectsController < ApplicationController
             render json: { error: "make sure you have both a file and a file name"}, status: :unprocessable_entity
         else 
         project = Project.find_by(id: params[:id])
-        object_key = params[:key] # Assuming key is passed as a parameter
     
-        configuration = Rails.application.config.active_storage.service_configurations(:amazon)
+        # configuration = Rails.application.config.active_storage.service_configurations(:amazon)
         
-        region = configuration["amazon"]["region"]
-        access_key_id = configuration["amazon"]["access_key_id"]
-        secret_access_key = configuration["amazon"]["secret_access_key"]
-        bucket = configuration["amazon"]["bucket"]
+        # region = configuration["amazon"]["region"]
+        # access_key_id = configuration["amazon"]["access_key_id"]
+        # secret_access_key = configuration["amazon"]["secret_access_key"]
+        # bucket = configuration["amazon"]["bucket"]
 
-        s3 = Aws::S3::Resource.new(
-          credentials: Aws::Credentials.new(
-            access_key_id,
-            secret_access_key
-          ),
-          region: region
-        )
+        # s3 = Aws::S3::Resource.new(
+        #   credentials: Aws::Credentials.new(
+        #     access_key_id,
+        #     secret_access_key
+        #   ),
+        #   region: region
+        # )
 
         # project.assets.attach(params[:key])
         # project.assets.last.update(filename: params[:name])
@@ -71,10 +70,10 @@ class Api::ProjectsController < ApplicationController
         # Generate a presigned URL for downloading the object
 
         # 7 days from now
-        obj = s3.bucket('kmssawsbucket').object(params[:key])
+        obj = @s3.bucket('kmssawsbucket').object(params[:key])
         url = obj.presigned_url(:get, expires_in: 500000)
             
-        project_file=ProjectFile.create(name: params[:name], key: params[:key], project_id: params[:id], url: url)
+        # project_file=ProjectFile.create(name: params[:name], key: params[:key], project_id: params[:id], url: url)
 
         render json: project
         end

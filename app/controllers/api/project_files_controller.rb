@@ -1,5 +1,6 @@
 class Api::ProjectFilesController < ApplicationController
-
+    before_action :authorize
+    
     def index
         project_files=ProjectFile.all
         render json: project_files

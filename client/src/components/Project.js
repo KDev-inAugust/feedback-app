@@ -114,7 +114,6 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
       });
       
       console.log("upload results=>", uploadResults)
-      // let fileUrl = `/rails/active_storage/blobs/redirect/${data.signed_id}`
       
   fetch("/api/add_asset/", {
         method: "POST",
