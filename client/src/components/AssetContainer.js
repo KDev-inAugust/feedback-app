@@ -15,7 +15,7 @@ function AssetContainer ({
     }) {
 
  // ------------------------------- Return ----------------------------
-  console.log("PorjectURLS=>", projectURLs)
+  console.log("ProjectURLS=>", projectURLs)
  return (
     <div>
       <label for="asset-upload-field">

@@ -105,7 +105,7 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
 
   uploadResults.forEach(({ signed_id, key } ) => {
     console.log("key=>", key)
-        data.append(selectedAsset[0], signed_id);
+        // data.append(selectedAsset[0], signed_id);
         data.append("key", key)
         data.append('signed_id', signed_id);
         data.append('asset', selectedAsset[0]);
@@ -122,7 +122,7 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
         .then(
           (response) => {
 
-            console.log(response);
+            console.log("first response=>", response);
             
             if (response.ok){
           response.json().then((data) => {
