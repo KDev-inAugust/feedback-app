@@ -109,4 +109,3 @@ class Api::ProjectsController < ApplicationController
         )
     end
 end
-
