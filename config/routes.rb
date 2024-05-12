@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :project_files
   resources :project_media
     post '/rails/active_storage/direct_uploads', to: 'overrides/direct_uploads#create'
-
   namespace :api do
     
     resources :client_projects
@@ -19,6 +18,7 @@ Rails.application.routes.draw do
     get "/me", to: "users#show"
     post "/add_asset", to: "projects#add_asset"
     put "/asset_purge", to: "projects#asset_purge"
+    
   
   end
 

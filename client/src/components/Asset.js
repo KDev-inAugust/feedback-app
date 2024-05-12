@@ -3,7 +3,6 @@ import { useState } from "react";
 import AssetComments from "./AssetComments";
 
 function Asset ({url, index, project, assetNames, comments, handleDeleteAsset}){
-console.log("URL=>", url)
 
     const [showCommentForm, setShowCommentForm] = useState(false);
     const [commentTimeStamp, setCommentTimeStamp] = useState(0);

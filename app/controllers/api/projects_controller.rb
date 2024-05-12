@@ -1,8 +1,7 @@
 class Api::ProjectsController < ApplicationController
     before_action :authorize
-    before_action :storage_config
+    before_action :storage_config , only: [:show, :add_asset, :asset_purge]
    
-
     def index
         projects=Project.all
         # render json: projects, include: ['active_storage_attachments', 'active_storage_attachments.comments.user_name']
@@ -48,43 +47,47 @@ class Api::ProjectsController < ApplicationController
         else 
         project = Project.find_by(id: params[:id])
     
-        # configuration = Rails.application.config.active_storage.service_configurations(:amazon)
-        
-        # region = configuration["amazon"]["region"]
-        # access_key_id = configuration["amazon"]["access_key_id"]
-        # secret_access_key = configuration["amazon"]["secret_access_key"]
-        # bucket = configuration["amazon"]["bucket"]
-
-        # s3 = Aws::S3::Resource.new(
-        #   credentials: Aws::Credentials.new(
-        #     access_key_id,
-        #     secret_access_key
-        #   ),
-        #   region: region
-        # )
-
-        # project.assets.attach(params[:key])
-        # project.assets.last.update(filename: params[:name])
-        # ActiveStorageAttachment.last.update(project_id: params[:id])
-
-        # Generate a presigned URL for downloading the object
-
         # 7 days from now
         obj = @s3.bucket('kmssawsbucket').object(params[:key])
         url = obj.presigned_url(:get, expires_in: 500000)
-            
         project_file=ProjectFile.create(name: params[:name], key: params[:key], project_id: params[:id], url: url)
-
         render json: project
         end
     end
 
     def asset_purge
-        asset=Project.find_by(id: params[:project_id]).assets.find_by(id: params[:asset_id])
-        asa=ActiveStorageAttachment.find_by(id: params[:asset_id])
-        asa.destroy
+        project_file=ProjectFile.find_by(id: params[:asset_id])
+        object_key=project_file.key
         project=Project.find_by(id: params[:project_id])
-        render json: project
+        # # Delete the object
+        project_file.destroy
+    
+
+        configuration = Rails.application.config.active_storage.service_configurations(:amazon)
+        region = configuration["amazon"]["region"]
+        access_key_id = configuration["amazon"]["access_key_id"]
+        secret_access_key = configuration["amazon"]["secret_access_key"]
+    
+        
+        client = Aws::S3::Client.new(
+          credentials: Aws::Credentials.new(
+            access_key_id,
+            secret_access_key
+          ),
+          region: region
+        )
+
+        response = client.delete_object({
+            bucket: @bucket,
+            key: object_key,
+        })
+        if response.successful?
+            render json: { project: project, response: response }
+          else
+            render json: { error: response.error, error_message: response.error.message }
+          end
+
+        # render json: project
     end
 
     private

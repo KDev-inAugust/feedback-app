@@ -80,7 +80,7 @@ upload.create((error, blob) => {
     reject();
   } else {
     console.log("blob", blob);
-    resolve({ signed_id: blob.signed_id, key: blob.key });
+    resolve({ signed_id: blob.signed_id, key: blob.key, blob: blob });
   }
 });
 });
@@ -90,7 +90,7 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
   console.log("stage 3 uploadFilesAndSubmitCalled");
   console.log("file Uploads=>", fileUploads);
   let loader=document.getElementById("loader");
-  // loader.className="loader"
+  loader.className="loader"
       
   const formData = new FormData();
   
@@ -103,12 +103,14 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
         console.log('form data values', value);
       }
 
-  uploadResults.forEach(({ signed_id, key } ) => {
-    console.log("key=>", key)
+  uploadResults.forEach(({ signed_id, key, blob } ) => {
+    console.log("key=>", key);
+    console.log("blob AGAIN=>", blob);
         data.append("key", key)
         data.append('signed_id', signed_id);
         data.append('id', id);
         data.append('name', assetName);
+        data.append('blob', JSON.stringify(blob))
       });
       
       console.log("upload results=>", uploadResults)
@@ -146,6 +148,7 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
 
     // ------------ Remove Asset From Project -----------
     function handleDeleteAsset (e) {
+      console.log(e.target.value)
         fetch("/api/asset_purge",{
 
         method: "PUT",
@@ -159,9 +162,10 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
             })
         }).then(r=>r.json())
         .then((data)=>{
-          setProjectURLs(data.project_file_urls);
-          setProject(data);  
-          setAssetNames(data.project_file_names);
+          console.log(data)
+          // setProjectURLs(data.project_file_urls);
+          // setProject(data);  
+          // setAssetNames(data.project_file_names);
         }
       )
     }
