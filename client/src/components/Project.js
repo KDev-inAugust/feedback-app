@@ -26,7 +26,7 @@ function Project(){
               console.log(data)
             setProjectURLs(data.project_file_urls);
             setProject(data);  
-            setAssetNames(data.asset_names);
+            setAssetNames(data.project_file_names);
           }
           )
     }
@@ -163,9 +163,9 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
         }).then(r=>r.json())
         .then((data)=>{
           console.log(data)
-          // setProjectURLs(data.project_file_urls);
-          // setProject(data);  
-          // setAssetNames(data.project_file_names);
+          setProjectURLs(data.project_file_urls);
+          setProject(data);  
+          setAssetNames(data.project_file_names);
         }
       )
     }

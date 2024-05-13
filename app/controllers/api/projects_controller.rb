@@ -82,12 +82,11 @@ class Api::ProjectsController < ApplicationController
             key: object_key,
         })
         if response.successful?
-            render json: { project: project, response: response }
+            render json: project
           else
             render json: { error: response.error, error_message: response.error.message }
           end
 
-        # render json: project
     end
 
     private
