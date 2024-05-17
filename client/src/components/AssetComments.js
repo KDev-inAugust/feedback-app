@@ -5,10 +5,9 @@ function AssetComments ({assetComments, handleDeleteComment}){
     function onClickDeleteComment(e){
         handleDeleteComment(e.target.value);
     }
-
+console.log("asset comments=>", assetComments)
     return (
         <div >
-            <p>Comments Will Go Here</p>
             {assetComments.map((comment, index)=>{
                 let remainder=comment.track_time%60;
                 let parseSecs=remainder.toLocaleString(undefined, {minimumIntegerDigits: 2})
