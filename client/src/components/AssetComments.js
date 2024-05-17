@@ -5,7 +5,7 @@ function AssetComments ({assetComments, handleDeleteComment}){
     function onClickDeleteComment(e){
         handleDeleteComment(e.target.value);
     }
-console.log("asset comments=>", assetComments)
+
     return (
         <div >
             {assetComments.map((comment, index)=>{

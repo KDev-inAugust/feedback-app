@@ -121,8 +121,6 @@ const uploadFilesAndSubmit = async (data, fileUploads) =>{
         })
         .then(
           (response) => {
-
-            console.log("first response=>", response);
             
             if (response.ok){
           response.json().then((data) => {

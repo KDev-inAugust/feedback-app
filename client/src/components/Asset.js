@@ -10,7 +10,6 @@ function Asset ({url, index, project, assetNames, comments, handleDeleteAsset}){
     const [assetComments, setAssetComments]=useState(comments);
     const [audioFileLoader, setAudioFileLoader] = useState(<div><p>...loading audio</p></div>)
 
-
 //  -------------- show add comment form -------
 function handleShowCommentForm (e){
     let audio = document.getElementById(`audio-element${e.target.value}`);

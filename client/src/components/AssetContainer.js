@@ -36,6 +36,7 @@ function AssetContainer ({
         
           {project ? 
           (projectURLs.map((url, index)=>{
+            console.log(`check for comments=>${index}`, project.project_files[index])
             return (
               <Asset 
               key={index}
