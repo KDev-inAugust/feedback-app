@@ -172,7 +172,8 @@ function AddClientProject(projectID, userID){
         </div>
           <div id="sign-up"> 
             <h2>Sign Up</h2>
-            <SignUp onLogin={handleLogin}/>
+            <p>sign up temporarily unavailable</p>
+            {/* <SignUp onLogin={handleLogin}/> */}
           </div>
 
       </div>

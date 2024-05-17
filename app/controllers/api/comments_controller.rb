@@ -1,10 +1,10 @@
 class Api::CommentsController < ApplicationController
     before_action :authorize
 
-    # def index
-    #     comments=Comment.all
-    #     render json: comments
-    # end
+    def index
+        comments=Comment.all
+        render json: comments
+    end
 
     def show
         comment=Comment.find_by(id: params[:id])
@@ -16,7 +16,7 @@ class Api::CommentsController < ApplicationController
 
     def create
         comment=Comment.create(comment_params)
-        comments=Comment.where(active_storage_attachment_id: params[:active_storage_attachment_id])
+        comments=Comment.where(project_file_id: params[:project_file_id])
         render json: comments
     end
 
@@ -35,7 +35,7 @@ class Api::CommentsController < ApplicationController
     private
 
     def comment_params
-        params.permit(:active_storage_attachment_id, :user_id, :track_time, :body)
+        params.permit(:project_file_id, :user_id, :track_time, :body)
     end
 
 

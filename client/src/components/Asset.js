@@ -42,13 +42,14 @@ let commentForm=
 // ------------- add comment to project asset -----------------
 
 function handleAddComment (){
+    console.log("add comment called")
     fetch("/api/comments",{
       method: "POST",
       headers: {
         "Content-Type":"application/json",
     },
     body: JSON.stringify({
-        active_storage_attachment_id: project.asset_ids[index],
+        project_file_id: project.project_file_ids[index],
         user_id: project.user_id,
         track_time: commentTimeStamp,
         body: commentText
@@ -61,7 +62,6 @@ function handleAddComment (){
 // Code for onCanPlay through here 
 
 function handleCanPlayThrough(){
-    console.log("all good");
     setAudioFileLoader(<div><p>audio loaded</p></div>)
 };
 
