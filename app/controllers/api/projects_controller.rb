@@ -1,6 +1,6 @@
 class Api::ProjectsController < ApplicationController
     before_action :authorize
-    before_action :storage_config , only: [:show, :add_asset, :asset_purge]
+    before_action :storage_config , only: [:show, :add_asset, :asset_purge, :destroy]
    
     def index
         projects=Project.all
@@ -34,11 +34,37 @@ class Api::ProjectsController < ApplicationController
 
     def destroy
         project=Project.find_by(id: params[:id])
-        assets=Project.find_by(id: params[:id]).assets.all
-        asas=ActiveStorageAttachment.where(project_id: params[:id]).destroy_all
-        assets.purge
-        project.destroy
-        render json: project
+        project_files=project.project_files
+        # assets=Project.find_by(id: params[:id]).assets.all
+        # asas=ActiveStorageAttachment.where(project_id: params[:id]).destroy_all
+        # assets.purge
+
+
+        configuration = Rails.application.config.active_storage.service_configurations(:amazon)
+        region = configuration["amazon"]["region"]
+        access_key_id = configuration["amazon"]["access_key_id"]
+        secret_access_key = configuration["amazon"]["secret_access_key"]
+    
+        client = Aws::S3::Client.new(
+          credentials: Aws::Credentials.new(
+            access_key_id,
+            secret_access_key
+          ),
+          region: region
+        )
+
+        project_files.each do | file | 
+            client.delete_object({
+                bucket: @bucket,
+                key: file.key,
+            })
+        end
+
+        
+            project.destroy
+            render json: project
+         
+        
     end
 
     def add_asset
