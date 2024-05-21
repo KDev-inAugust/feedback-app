@@ -14,7 +14,8 @@ function ClientProjectContainer (){
         .then((r)=>r.json()).then((data)=>{
           // consider refactoring into one piece of state if they are both set together
             setClientProject(data);
-            setClientProjectURLs(data.asset_urls)
+           
+            setClientProjectURLs(data.project_file_urls)
         })
       },[])
 

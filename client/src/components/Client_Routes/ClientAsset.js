@@ -3,7 +3,7 @@ import { useState } from "react";
 import { UserContext } from "../App";
 import ClientAssetComments from "./ClientAssetComments";
 
-function ClientAsset ({url, clientId, index, name, comments, active_storage_attachment_id}){
+function ClientAsset ({url, clientId, index, name, comments, project_file_id}){
     const [showCommentForm, setShowCommentForm] = useState(false);
     const [commentTimeStamp, setCommentTimeStamp] = useState(0);
     const [commentText, setCommentText] = useState("");
@@ -12,7 +12,7 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
 // ----------- useContext to associate logged-in user with posted comments
     const postingUser=useContext(UserContext)
 // ------------------------------------------------------------------------
-    
+    console.log("project file id=>", project_file_id)
 
 // ------------- add comment to project asset -----------------
     function handleAddComment (commentTimeStamp, commentText){
@@ -22,7 +22,7 @@ function ClientAsset ({url, clientId, index, name, comments, active_storage_atta
             "Content-Type":"application/json",
         },
         body: JSON.stringify({
-            active_storage_attachment_id: active_storage_attachment_id ,
+            project_file_id: project_file_id,
             user_id: postingUser.id,
             track_time: commentTimeStamp,
             body: commentText
