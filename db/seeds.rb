@@ -10,16 +10,15 @@ User.all.delete_all
 Project.all.delete_all
 
 
-u1=User.create(name: "UserOne", password: "password1")
-u2=User.create(name: "UserTwo", password: "password2")
-u3=User.create(name: "UserThree", password: "password3")
+u1=User.create(name: "Kane_Test", password: "KaneTestKane_4202")
 
-p1=Project.create(name: "Project One", user_id: 1)
-p2=Project.create(name: "Project Two", user_id: 1)
-p3=Project.create(name: "Project Three", user_id: 2)
-p4=Project.create(name: "Project Four", user_id: 2)
-p5=Project.create(name: "Project Five", user_id: 3)
-p6=Project.create(name: "Project Six", user_id: 3)
+
+# p1=Project.create(name: "Project One", user_id: 1)
+# p2=Project.create(name: "Project Two", user_id: 1)
+# p3=Project.create(name: "Project Three", user_id: 2)
+# p4=Project.create(name: "Project Four", user_id: 2)
+# p5=Project.create(name: "Project Five", user_id: 3)
+# p6=Project.create(name: "Project Six", user_id: 3)
 
 # cp=ClientProject.create(user_id: 1, project_id: 3)
 # cp=ClientProject.create(user_id: 1, project_id: 4)
