@@ -11,7 +11,7 @@ Project.all.delete_all
 
 
 u1=User.create(name: "Kane_Test", password: "KaneTestKane_4202")
-
+u2=User.create(name: "Guest_Test", password: "GuestTestGuest_4202")
 
 # p1=Project.create(name: "Project One", user_id: 1)
 # p2=Project.create(name: "Project Two", user_id: 1)
